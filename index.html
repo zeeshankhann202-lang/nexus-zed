@@ -1,0 +1,2580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#f5a623">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NEXUS ZED">
+<meta name="application-name" content="NEXUS ZED">
+<meta name="msapplication-TileColor" content="#f5a623">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-72.png">
+<meta name="description" content="NEXUS ZED — Institutional XAU/USD analytical intelligence. SMC · ML · Bayesian · Live data.">
+
+<title>NEXUS — ZED Trading Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   NEXUS ZED v5 — Design System
+   Pure black · Card-based · Gold accent
+   Mobile-first · App aesthetic
+═══════════════════════════════════════════════ */
+:root{
+  --bg0:#0a0a0f;
+  --bg1:#111118;
+  --bg2:#16161f;
+  --bg3:#1c1c27;
+  --bg4:#222230;
+  --card:#13131a;
+  --card2:#1a1a24;
+  --border:#2a2a3a;
+  --border2:#333345;
+
+  --gold:#f5a623;
+  --gold2:#ffc547;
+  --golddim:rgba(245,166,35,.15);
+  --goldborder:rgba(245,166,35,.3);
+
+  --sell:#ef4444;
+  --sell2:#ff6b6b;
+  --selldim:rgba(239,68,68,.12);
+  --sellborder:rgba(239,68,68,.3);
+
+  --buy:#22c55e;
+  --buy2:#4ade80;
+  --buydim:rgba(34,197,94,.1);
+  --buyborder:rgba(34,197,94,.28);
+
+  --blue:#3b82f6;
+  --bluedim:rgba(59,130,246,.12);
+  --blueborder:rgba(59,130,246,.28);
+
+  --piv:#a855f7;
+  --pivdim:rgba(168,85,247,.12);
+  --pivborder:rgba(168,85,247,.28);
+
+  --cyan:#06b6d4;
+  --cyandim:rgba(6,182,212,.1);
+
+  --warn:#f59e0b;
+  --warndim:rgba(245,158,11,.12);
+
+  --t1:#f1f5f9;
+  --t2:#94a3b8;
+  --t3:#475569;
+  --t4:#2d3748;
+
+  --radius:12px;
+  --radius-sm:8px;
+  --radius-xs:6px;
+
+  --font:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+
+  --nav-h:56px;
+  --price-h:52px;
+  --bottom-h:68px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;background:var(--bg0);color:var(--t1);font-family:var(--font);overflow-x:hidden;font-size:14px;-webkit-font-smoothing:antialiased;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+
+/* ── DISCLAIMER MODAL ── */
+#disclaimerModal{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.disc-box{
+  background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);
+  max-width:480px;width:100%;padding:32px 28px;
+}
+.disc-logo{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.disc-n{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#000;}
+.disc-title{font-size:18px;font-weight:700;color:var(--t1);}
+.disc-sub{font-size:11px;color:var(--t3);letter-spacing:.5px;margin-top:1px;}
+.disc-body{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:20px;}
+.disc-body strong{color:var(--sell);}
+.disc-body .warn{color:var(--warn);font-size:12px;margin-top:12px;display:block;padding:10px;background:var(--warndim);border-radius:var(--radius-xs);border-left:3px solid var(--warn);}
+.disc-accept{
+  width:100%;padding:13px;background:var(--gold);border:none;border-radius:var(--radius-sm);
+  color:#000;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);
+  transition:opacity .2s;
+}
+.disc-accept:hover{opacity:.9;}
+.disc-terms{font-size:11px;color:var(--t3);text-align:center;margin-top:12px;line-height:1.6;}
+
+/* ── TOP NAV ── */
+#topNav{
+  position:sticky;top:0;z-index:500;height:var(--nav-h);
+  background:var(--bg1);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 16px;gap:0;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:20px;}
+.nav-n{width:32px;height:32px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#000;flex-shrink:0;}
+.nav-brand{line-height:1;}
+.nav-name{font-size:14px;font-weight:700;color:var(--t1);}
+.nav-sub{font-size:9px;color:var(--t3);letter-spacing:.8px;font-family:var(--mono);}
+.nav-tabs{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{
+  padding:6px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;
+  color:var(--t3);cursor:pointer;white-space:nowrap;border:none;background:transparent;
+  font-family:var(--font);transition:all .2s;flex-shrink:0;
+}
+.nav-tab:hover{color:var(--t2);background:var(--bg3);}
+.nav-tab.active{color:var(--gold);background:var(--golddim);font-weight:600;}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:8px;}
+.nav-bell{position:relative;width:34px;height:34px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:16px;}
+.nav-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--sell);border-radius:50%;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg1);}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--t1);cursor:pointer;}
+
+/* ── PRICE BAR ── */
+#priceBar{
+  height:var(--price-h);background:var(--bg1);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 16px;gap:16px;
+}
+.pb-pair{display:flex;align-items:center;gap:8px;}
+.pb-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pb-label{font-size:11px;color:var(--t3);line-height:1;}
+.pb-name{font-size:12px;font-weight:500;color:var(--t2);}
+.pb-price{font-size:22px;font-weight:700;color:var(--t1);font-family:var(--mono);letter-spacing:-.5px;}
+.pb-change{display:flex;flex-direction:column;gap:1px;}
+.pb-chval{font-size:12px;font-weight:600;font-family:var(--mono);}
+.pb-live{display:flex;align-items:center;gap:5px;background:rgba(34,197,94,.12);border:1px solid var(--buyborder);border-radius:6px;padding:4px 10px;}
+.pb-livedot{width:6px;height:6px;border-radius:50%;background:var(--buy);animation:pulse 1s ease-in-out infinite;}
+.pb-livetxt{font-size:11px;font-weight:600;color:var(--buy);letter-spacing:.5px;}
+.pb-session{margin-left:auto;text-align:right;}
+.pb-sessname{font-size:12px;font-weight:600;color:var(--t1);}
+.pb-sesstime{font-size:11px;color:var(--t3);font-family:var(--mono);}
+
+/* ── PAGE WRAPPER ── */
+#app{padding-bottom:calc(var(--bottom-h) + 8px);}
+
+/* ── WORKSPACE PAGES ── */
+.page{display:none;padding:12px;}
+.page.active{display:block;}
+
+/* ── DASHBOARD GRID ── */
+.dash-grid{
+  display:grid;
+  grid-template-columns:220px 1fr 220px;
+  grid-template-rows:auto auto auto;
+  gap:10px;
+}
+
+/* ── CARDS ── */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;
+}
+.card-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px 10px;border-bottom:1px solid var(--border);
+}
+.card-title{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;}
+.card-menu{color:var(--t3);cursor:pointer;font-size:16px;width:24px;text-align:center;}
+.card-body{padding:14px;}
+
+/* ── SIGNAL CARD ── */
+#signalCard{grid-column:1;grid-row:1;}
+.sig-direction{font-size:48px;font-weight:800;line-height:1;margin-bottom:4px;letter-spacing:-2px;}
+.sig-conf-val{font-size:28px;font-weight:700;margin-bottom:2px;}
+.sig-conf-lbl{font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:8px;}
+.sig-conf-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:14px;}
+.sig-conf-fill{height:100%;border-radius:2px;transition:width .6s ease;}
+.sig-state-lbl{font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:4px;}
+.sig-state-val{font-size:13px;font-weight:600;margin-bottom:8px;}
+.sig-chips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;}
+.sig-chip{padding:3px 7px;border-radius:5px;font-size:10px;font-weight:600;letter-spacing:.5px;}
+.sig-rl-lbl{font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:8px;font-weight:600;}
+.sig-check{display:flex;align-items:center;gap:8px;padding:4px 0;}
+.sig-check-ico{width:16px;height:16px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;}
+.sig-check.met .sig-check-ico{background:var(--buydim);color:var(--buy);}
+.sig-check.unmet .sig-check-ico{background:var(--bg3);color:var(--t3);}
+.sig-check-txt{font-size:12px;color:var(--t2);}
+.sig-check.unmet .sig-check-txt{color:var(--t3);}
+
+/* ── CHART CARD ── */
+#chartCard{grid-column:2;grid-row:1 / 3;}
+.chart-tf-row{display:flex;align-items:center;gap:4px;padding:8px 10px;border-bottom:1px solid var(--border);}
+.chart-tf{padding:4px 10px;border-radius:6px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;border:none;background:transparent;font-family:var(--font);transition:all .15s;}
+.chart-tf:hover{color:var(--t2);}
+.chart-tf.active{background:var(--golddim);color:var(--gold);font-weight:600;}
+.chart-tools{display:flex;gap:4px;margin-left:auto;}
+.chart-tool{width:28px;height:28px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t3);font-size:13px;transition:all .15s;}
+.chart-tool:hover{color:var(--t1);border-color:var(--border2);}
+.chart-tool.active{background:var(--golddim);color:var(--gold);border-color:var(--goldborder);}
+.chart-area{position:relative;height:320px;background:var(--bg0);}
+#mainCanvas{width:100%;height:100%;display:block;}
+.chart-overlay{position:absolute;inset:0;pointer-events:none;}
+.chart-price-label{display:none;} /* price drawn on canvas */
+.chart-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.chart-stat{background:var(--card);padding:10px 12px;}
+.chart-stat-lbl{font-size:10px;color:var(--t3);letter-spacing:.6px;margin-bottom:3px;display:flex;align-items:center;gap:4px;}
+.chart-stat-val{font-size:13px;font-weight:700;}
+
+/* TradingView toggle */
+#tvWidget{display:none;height:320px;}
+.tv-banner{background:var(--bg2);border-radius:var(--radius-sm);padding:10px;margin:8px;font-size:11px;color:var(--t3);text-align:center;border:1px dashed var(--border2);}
+
+/* ── TRADE SETUP CARD ── */
+#tradeCard{grid-column:3;grid-row:1;}
+.setup-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--border);}
+.setup-row:last-child{border-bottom:none;}
+.setup-key{font-size:11px;color:var(--t3);letter-spacing:.5px;}
+.setup-val{font-size:14px;font-weight:600;font-family:var(--mono);}
+.setup-pts{font-size:10px;font-weight:600;font-family:var(--mono);margin-top:1px;}
+.setup-divider{height:1px;background:var(--border);margin:6px 0;}
+.risk-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;}
+.risk-key{font-size:11px;color:var(--t3);}
+.risk-val{font-size:13px;font-weight:600;font-family:var(--mono);}
+
+/* ── ZED MODULES ROW ── */
+#modulesRow{grid-column:1 / -1;grid-row:3;}
+.modules-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:14px;}
+.module-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s;
+}
+.module-card:hover{border-color:var(--border2);background:var(--bg3);}
+.module-card.active{border-color:var(--goldborder);background:var(--golddim);}
+.module-icon{width:40px;height:40px;margin:0 auto 8px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.module-name{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:2px;}
+.module-sub{font-size:10px;color:var(--t3);}
+.module-arrow{font-size:10px;color:var(--t3);margin-top:4px;}
+
+/* ── BOTTOM PANELS ── */
+.bottom-grid{
+  grid-column:1 / -1;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+}
+
+/* NEWS FILTER */
+.news-body{padding:14px;}
+.news-icon{font-size:24px;margin-bottom:8px;}
+.news-status{font-size:13px;font-weight:500;color:var(--t2);margin-bottom:4px;}
+.news-detail{font-size:11px;color:var(--t3);margin-bottom:12px;}
+.news-btn{
+  width:100%;padding:8px;border-radius:var(--radius-xs);background:var(--bg3);
+  border:1px solid var(--border2);color:var(--t2);font-size:12px;font-weight:500;
+  cursor:pointer;font-family:var(--font);transition:all .15s;
+}
+.news-btn:hover{border-color:var(--goldborder);color:var(--gold);}
+.news-feed{margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:100px;overflow-y:auto;}
+.news-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);}
+.news-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.news-txt{font-size:11px;color:var(--t2);line-height:1.5;}
+.news-time{font-size:10px;color:var(--t3);flex-shrink:0;}
+
+/* MARKET SUMMARY */
+.msum-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.msum-row:last-child{border-bottom:none;}
+.msum-pair{font-size:13px;font-weight:500;color:var(--t2);}
+.msum-price{font-size:13px;font-weight:600;color:var(--t1);font-family:var(--mono);}
+.msum-ch{font-size:12px;font-weight:600;font-family:var(--mono);}
+
+/* MARKET SENTIMENT */
+.sent-gauge-wrap{position:relative;width:160px;height:90px;margin:0 auto 8px;}
+#sentCanvas{display:block;}
+.sent-val{text-align:center;font-size:32px;font-weight:800;font-family:var(--mono);line-height:1;}
+.sent-label{text-align:center;font-size:12px;font-weight:600;letter-spacing:.8px;margin-top:2px;}
+.sent-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:8px;padding:0 4px;}
+
+/* ── BOTTOM NAV ── */
+#bottomNav{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  height:var(--bottom-h);background:var(--bg1);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-around;padding:0 8px;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.bnav-tab{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;
+  min-width:48px;transition:all .2s;border:none;background:transparent;font-family:var(--font);
+}
+.bnav-tab.active .bnav-icon{color:var(--gold);}
+.bnav-tab.active .bnav-lbl{color:var(--gold);}
+.bnav-icon{font-size:20px;color:var(--t3);line-height:1;transition:color .2s;}
+.bnav-lbl{font-size:10px;color:var(--t3);font-weight:500;transition:color .2s;}
+.bnav-center{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(245,166,35,.4);
+  font-size:22px;font-weight:800;color:#000;cursor:pointer;
+  border:3px solid var(--bg1);margin-top:-16px;
+  font-family:var(--font);flex-shrink:0;
+}
+
+/* ── OTHER PAGES ── */
+.page-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:60vh;gap:12px;color:var(--t3);
+}
+.page-placeholder .icon{font-size:48px;}
+.page-placeholder h2{font-size:18px;font-weight:600;color:var(--t2);}
+.page-placeholder p{font-size:13px;text-align:center;max-width:280px;line-height:1.6;}
+.page-placeholder .badge{padding:5px 12px;border-radius:20px;background:var(--golddim);color:var(--gold);font-size:11px;font-weight:600;border:1px solid var(--goldborder);}
+
+/* ── FEED STATUS BAR ── */
+#feedStatus{
+  display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;
+  background:var(--bg1);border-bottom:1px solid var(--border);
+  font-size:10px;font-family:var(--mono);
+}
+.fs{display:flex;align-items:center;gap:4px;padding:2px 7px;border-radius:4px;}
+.fs-dot{width:5px;height:5px;border-radius:50%;}
+.fs.ok{background:var(--buydim);color:var(--buy);}
+.fs.ok .fs-dot{background:var(--buy);}
+.fs.ld{background:var(--warndim);color:var(--warn);}
+.fs.ld .fs-dot{background:var(--warn);}
+.fs.err{background:var(--selldim);color:var(--sell);}
+.fs.err .fs-dot{background:var(--sell);}
+
+/* ── SIMULATED BADGE ── */
+.sim-badge{
+  display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:4px;
+  background:var(--warndim);border:1px solid var(--warn);
+  font-size:9px;font-weight:600;color:var(--warn);letter-spacing:.5px;
+  font-family:var(--mono);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .dash-grid{grid-template-columns:1fr;grid-template-rows:auto;}
+  #signalCard{grid-column:1;grid-row:auto;}
+  #chartCard{grid-column:1;grid-row:auto;}
+  #tradeCard{grid-column:1;grid-row:auto;}
+  #modulesRow{grid-column:1;grid-row:auto;}
+  .modules-grid{grid-template-columns:repeat(3,1fr);}
+  .bottom-grid{grid-template-columns:1fr;}
+  .chart-area{height:260px;}
+}
+@media(max-width:600px){
+  .modules-grid{grid-template-columns:repeat(2,1fr);}
+  .chart-stat-row{grid-template-columns:repeat(2,1fr);}
+  .pb-price{font-size:18px;}
+  .nav-tabs{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:fadeIn .3s ease both;}
+.card:nth-child(2){animation-delay:.05s;}
+.card:nth-child(3){animation-delay:.1s;}
+
+/* ════════════════════════════════════════
+   SETTINGS MODAL
+════════════════════════════════════════ */
+#settingsModal{
+  position:fixed;inset:0;z-index:8000;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);
+  display:none;align-items:flex-start;justify-content:center;
+  padding:20px;overflow-y:auto;
+}
+#settingsModal.open{display:flex;}
+.smod-box{
+  background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);
+  width:100%;max-width:560px;margin:auto;overflow:hidden;
+}
+.smod-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.smod-title{font-size:15px;font-weight:700;color:var(--t1);}
+.smod-close{width:30px;height:30px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:16px;}
+.smod-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);}
+.smod-tab{flex:1;padding:10px;text-align:center;font-size:12px;font-weight:500;
+  color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
+.smod-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.smod-body{padding:20px;display:flex;flex-direction:column;gap:16px;max-height:70vh;overflow-y:auto;}
+.smod-section{display:flex;flex-direction:column;gap:8px;}
+.smod-section-title{font-size:10px;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+.smod-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.smod-label{font-size:13px;color:var(--t2);flex:1;}
+.smod-sublabel{font-size:11px;color:var(--t3);margin-top:1px;}
+.smod-input{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-xs);
+  color:var(--t1);font-family:var(--mono);font-size:12px;padding:7px 10px;
+  outline:none;width:180px;transition:border-color .2s;
+}
+.smod-input:focus{border-color:var(--goldborder);}
+.smod-input.full{width:100%;}
+.smod-input-wrap{position:relative;width:180px;}
+.smod-input-wrap .smod-input{width:100%;padding-right:36px;}
+.smod-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  cursor:pointer;color:var(--t3);font-size:13px;user-select:none;}
+.smod-select{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-xs);
+  color:var(--t1);font-family:var(--font);font-size:12px;padding:7px 10px;
+  outline:none;width:180px;cursor:pointer;
+}
+.smod-slider-wrap{display:flex;align-items:center;gap:8px;width:180px;}
+.smod-slider{flex:1;accent-color:var(--gold);height:4px;}
+.smod-slider-val{font-family:var(--mono);font-size:12px;color:var(--gold);width:32px;text-align:right;}
+.smod-toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
+.smod-toggle input{opacity:0;width:0;height:0;}
+.smod-toggle-sl{position:absolute;inset:0;background:var(--bg4);border-radius:11px;cursor:pointer;
+  transition:background .2s;border:1px solid var(--border2);}
+.smod-toggle-sl:before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;
+  background:var(--t3);border-radius:50%;transition:all .2s;}
+.smod-toggle input:checked+.smod-toggle-sl{background:var(--golddim);border-color:var(--goldborder);}
+.smod-toggle input:checked+.smod-toggle-sl:before{transform:translateX(18px);background:var(--gold);}
+.smod-divider{height:1px;background:var(--border);margin:4px 0;}
+.smod-footer{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:8px;}
+.smod-btn{flex:1;padding:10px;border-radius:var(--radius-xs);font-size:13px;font-weight:600;
+  cursor:pointer;font-family:var(--font);border:none;transition:all .2s;}
+.smod-btn-primary{background:var(--gold);color:#000;}
+.smod-btn-primary:hover{opacity:.9;}
+.smod-btn-secondary{background:var(--bg3);color:var(--t2);border:1px solid var(--border2);}
+.smod-btn-secondary:hover{border-color:var(--border2);color:var(--t1);}
+.smod-status{font-size:11px;padding:6px 10px;border-radius:var(--radius-xs);margin-top:4px;}
+.smod-status.ok{background:var(--buydim);color:var(--buy);border:1px solid var(--buyborder);}
+.smod-status.err{background:var(--selldim);color:var(--sell);border:1px solid var(--sellborder);}
+.smod-status.warn{background:var(--warndim);color:var(--warn);border:1px solid rgba(245,158,11,.3);}
+.smod-tab-content{display:none;}
+.smod-tab-content.active{display:flex;flex-direction:column;gap:16px;}
+
+/* ════════════════════════════════════════
+   OHLC STATUS BADGE
+════════════════════════════════════════ */
+.ohlc-badge{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 8px;
+  border-radius:5px;font-size:10px;font-weight:600;font-family:var(--mono);
+}
+.ohlc-badge.live{background:var(--buydim);color:var(--buy);border:1px solid var(--buyborder);}
+.ohlc-badge.sim{background:var(--warndim);color:var(--warn);border:1px solid rgba(245,158,11,.3);}
+
+/* ════════════════════════════════════════
+   MODULE PAGES — SHARED LAYOUT
+════════════════════════════════════════ */
+.mod-page{display:flex;flex-direction:column;gap:10px;}
+.mod-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mod-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.mod-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:900px){
+  .mod-grid-2{grid-template-columns:1fr;}
+  .mod-grid-3{grid-template-columns:1fr;}
+  .mod-grid-4{grid-template-columns:1fr 1fr;}
+}
+/* stat blocks */
+.stat-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
+.stat-block-lbl{font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:6px;font-weight:600;text-transform:uppercase;}
+.stat-block-val{font-size:24px;font-weight:700;font-family:var(--mono);line-height:1;}
+.stat-block-sub{font-size:11px;color:var(--t3);margin-top:4px;}
+/* data rows */
+.data-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.data-row:last-child{border-bottom:none;}
+.data-key{font-size:12px;color:var(--t3);}
+.data-val{font-size:13px;font-weight:600;font-family:var(--mono);}
+/* progress bars */
+.prog-wrap{margin:4px 0;}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-bottom:4px;}
+.prog-bg{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;transition:width .6s ease;}
+/* zone cards */
+.zone-card{border-radius:var(--radius-sm);padding:12px;margin-bottom:6px;border-left:3px solid;}
+.zone-card.sell{background:var(--selldim);border-color:var(--sell);}
+.zone-card.buy{background:var(--buydim);border-color:var(--buy);}
+.zone-card.fvg{background:var(--warndim);border-color:var(--warn);}
+.zone-card-type{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.zone-card-range{font-size:16px;font-weight:700;font-family:var(--mono);}
+.zone-card-sub{font-size:11px;color:var(--t3);margin-top:2px;}
+/* scenario */
+.scenario-card{border-radius:var(--radius-sm);padding:12px;border:1px solid var(--border);margin-bottom:6px;}
+.scenario-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.scenario-name{font-size:12px;font-weight:700;letter-spacing:.5px;}
+.scenario-pct{font-size:18px;font-weight:800;font-family:var(--mono);}
+.scenario-txt{font-size:12px;color:var(--t2);line-height:1.6;}
+/* canvases */
+.canvas-wrap{background:var(--bg0);border-radius:var(--radius-xs);overflow:hidden;position:relative;}
+/* journal table */
+.j-table{width:100%;border-collapse:collapse;}
+.j-table th{font-size:10px;color:var(--t3);letter-spacing:.8px;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);font-weight:600;}
+.j-table td{font-size:12px;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--t2);font-family:var(--mono);}
+.j-table tr:hover td{background:var(--bg2);}
+/* grade badges */
+.grade{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;}
+.grade-a{background:var(--buydim);color:var(--buy);}
+.grade-b{background:var(--golddim);color:var(--gold);}
+.grade-c{background:var(--warndim);color:var(--warn);}
+/* algo detection */
+.algo-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;margin-bottom:6px;}
+.algo-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.algo-name{font-size:11px;font-weight:700;letter-spacing:.5px;}
+.algo-conf{font-size:12px;font-weight:700;font-family:var(--mono);}
+.algo-desc{font-size:11px;color:var(--t3);line-height:1.5;margin-bottom:6px;}
+/* MC paths */
+#mcCanvas{display:block;}
+/* adx gauge */
+.adx-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.adx-label{font-size:11px;color:var(--t3);width:32px;flex-shrink:0;}
+.adx-bar-bg{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.adx-bar-fill{height:100%;border-radius:3px;transition:width .6s ease;}
+.adx-val{font-size:12px;font-weight:700;font-family:var(--mono);width:40px;text-align:right;flex-shrink:0;}
+
+
+/* ── CHART ENGINE v2 ── */
+#mainCanvas{cursor:crosshair;display:block;width:100%;height:100%;}
+.chart-area{position:relative;height:340px;background:#0a0a0f;overflow:hidden;}
+.chart-data-badge{
+  position:absolute;top:6px;right:60px;
+  font-size:9px;font-family:var(--mono);color:rgba(71,85,105,.6);
+  pointer-events:none;
+}
+.chart-ema-legend{
+  position:absolute;top:6px;left:6px;
+  display:flex;gap:10px;pointer-events:none;
+}
+.chart-ema-dot{
+  display:flex;align-items:center;gap:4px;
+  font-size:9px;font-family:var(--mono);
+}
+.chart-zoom-btns{
+  position:absolute;bottom:22px;right:60px;
+  display:flex;gap:3px;
+}
+.chart-zoom-btn{
+  width:22px;height:22px;border-radius:4px;
+  background:rgba(17,17,24,.8);border:1px solid #2a2a3a;
+  color:#64748b;font-size:12px;display:flex;align-items:center;
+  justify-content:center;cursor:pointer;
+  transition:all .15s;user-select:none;
+}
+.chart-zoom-btn:hover{color:#f5a623;border-color:rgba(245,166,35,.3);}
+@media(max-width:600px){.chart-area{height:260px;}}
+
+
+/* ── GATED TABS ── */
+.nav-tab.gated{opacity:.45;}
+.nav-tab.gated:hover{opacity:.6;}
+.bnav-tab.gated{opacity:.45;}
+
+
+/* ── PWA SAFE AREAS (iPhone notch / home indicator) ── */
+@supports(padding: max(0px)) {
+  #bottomNav { padding-bottom: max(env(safe-area-inset-bottom), 8px); height: calc(var(--bottom-h) + env(safe-area-inset-bottom)); }
+  #topNav    { padding-top: env(safe-area-inset-top); }
+}
+/* ── PWA STANDALONE: hide browser indicators ── */
+@media(display-mode: standalone) {
+  body { user-select: none; -webkit-user-select: none; }
+  #app { -webkit-overflow-scrolling: touch; }
+}
+/* ── INSTALL + UPDATE BANNERS ── */
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     RISK DISCLAIMER MODAL
+══════════════════════════════════════════ -->
+<div id="disclaimerModal">
+  <div class="disc-box">
+    <div class="disc-logo">
+      <div class="disc-n">N</div>
+      <div>
+        <div class="disc-title">NEXUS — ZED Trading Systems</div>
+        <div class="disc-sub">INSTITUTIONAL INTELLIGENCE · XAU/USD</div>
+      </div>
+    </div>
+    <div class="disc-body">
+      <strong>NOT FINANCIAL ADVICE.</strong> NEXUS is an analytical tool that uses automated algorithms, statistical models, and live market data to generate signals and analysis for XAU/USD (Gold). It does not constitute financial advice, investment recommendations, or a solicitation to trade.
+      <span class="warn">⚠ Trading gold carries significant risk of loss. Past performance and system signals are not indicative of future results. You may lose more than you invest. Only trade with capital you can afford to lose. Always verify signals independently before executing any trade.</span>
+    </div>
+    <button class="disc-accept" onclick="acceptDisclaimer()">I Understand — Enter NEXUS</button>
+    <div class="disc-terms">By entering you agree to our Terms of Service and Privacy Policy. Data sourced from public APIs — verify before trading.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TOP NAV
+══════════════════════════════════════════ -->
+<nav id="topNav">
+  <div class="nav-logo">
+    <div class="nav-n">N</div>
+    <div class="nav-brand">
+      <div class="nav-name">NEXUS</div>
+      <div class="nav-sub">ZED TRADING SYSTEMS</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-page="dashboard">Dashboard</button>
+    <button class="nav-tab" data-page="macro">Macro</button>
+    <button class="nav-tab" data-page="liquidity">Liquidity</button>
+    <button class="nav-tab" data-page="structure">Structure</button>
+    <button class="nav-tab" data-page="execution">Execution</button>
+    <button class="nav-tab" data-page="quant">Quant</button>
+    <button class="nav-tab" data-page="journal">Journal</button>
+    <button class="nav-tab" data-page="settings">⚙</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-bell" id="alertBell">
+      🔔<span class="nav-badge" id="alertCount">0</span>
+    </div>
+    <div class="nav-avatar">Z</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PRICE BAR
+══════════════════════════════════════════ -->
+<div id="priceBar">
+  <div class="pb-pair">
+    <div class="pb-dot"></div>
+    <div>
+      <div class="pb-name">XAU/USD</div>
+      <div style="font-size:10px;color:var(--t3);">Gold Spot / U.S. Dollar</div>
+    </div>
+  </div>
+  <div class="pb-price" id="pbPrice">—</div>
+  <div class="pb-change">
+    <div class="pb-chval" id="pbChange" style="color:var(--t3);">—</div>
+    <div style="font-size:10px;color:var(--t3)" id="pbChangePct">—</div>
+  </div>
+  <div class="pb-live">
+    <div class="pb-livedot"></div>
+    <div class="pb-livetxt">LIVE</div>
+  </div>
+  <div class="pb-session">
+    <div class="pb-sessname" id="pbSessName">Loading...</div>
+    <div class="pb-sesstime" id="pbSessTime">--:--:-- --</div>
+  </div>
+</div>
+
+<!-- FEED STATUS -->
+<div id="feedStatus">
+  <div class="fs ld" id="fsGold"><div class="fs-dot"></div>XAU</div>
+  <div class="fs ld" id="fsDXY"><div class="fs-dot"></div>DXY</div>
+  <div class="fs ld" id="fsYield"><div class="fs-dot"></div>10Y</div>
+  <div class="fs ld" id="fsOil"><div class="fs-dot"></div>OIL</div>
+  <div class="fs ld" id="fsSPX"><div class="fs-dot"></div>SPX</div>
+  <div class="fs ld" id="fsVIX"><div class="fs-dot"></div>VIX</div>
+  <div style="margin-left:auto;color:var(--t3);display:flex;align-items:center;gap:4px;">
+    <span id="cycleCount" style="font-size:10px;">Cycle 0</span>
+    <span style="font-size:10px;" id="nextUpd">· upd in 10s</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     APP PAGES
+══════════════════════════════════════════ -->
+<div id="app">
+
+<!-- ── DASHBOARD ── -->
+<div class="page active" id="page-dashboard">
+<div class="dash-grid">
+
+  <!-- SIGNAL CARD -->
+  <div class="card" id="signalCard">
+    <div class="card-hdr">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-size:14px;">🌟</span>
+        <span class="card-title">NEXUS SIGNAL</span>
+      </div>
+      <div class="card-menu">···</div>
+    </div>
+    <div class="card-body">
+      <div class="sig-direction" id="sigDir" style="color:var(--t3);">WAIT</div>
+      <div class="sig-conf-val" id="sigConf" style="color:var(--t3);">—%</div>
+      <div class="sig-conf-lbl">CONFIDENCE</div>
+      <div class="sig-conf-bar"><div class="sig-conf-fill" id="sigConfBar" style="width:0%;background:var(--t3);"></div></div>
+
+      <div class="sig-state-lbl">MARKET STATE</div>
+      <div class="sig-state-val" id="sigState" style="color:var(--t3);">SCANNING</div>
+
+      <div class="sig-chips" id="sigChips">
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">B</span>
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">E</span>
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">A</span>
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">R</span>
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">I</span>
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">S</span>
+        <span class="sig-chip" style="background:var(--bg3);color:var(--t3);">H</span>
+      </div>
+
+      <div class="sig-rl-lbl">REASON CONFLUENCE</div>
+      <div id="sigChecks">
+        <div class="sig-check unmet" id="chk-macro"><div class="sig-check-ico">✓</div><span class="sig-check-txt">ZED Macro</span></div>
+        <div class="sig-check unmet" id="chk-liq"><div class="sig-check-ico">✓</div><span class="sig-check-txt">ZED Liquidity</span></div>
+        <div class="sig-check unmet" id="chk-struct"><div class="sig-check-ico">✓</div><span class="sig-check-txt">ZED Structure</span></div>
+        <div class="sig-check unmet" id="chk-sess"><div class="sig-check-ico">✓</div><span class="sig-check-txt">Session Timing</span></div>
+        <div class="sig-check unmet" id="chk-ai"><div class="sig-check-ico">✓</div><span class="sig-check-txt">ZED AI</span></div>
+        <div class="sig-check unmet" id="chk-vol"><div class="sig-check-ico">✓</div><span class="sig-check-txt">Volatility</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART CARD -->
+  <div class="card" id="chartCard">
+    <div class="card-hdr">
+      <span class="card-title">CHART</span>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button class="chart-tool active" id="btnOurChart" onclick="showOurChart()" title="NEXUS Chart — auto-drawn zones">⬡</button>
+        <button class="chart-tool" id="btnTVChart" onclick="showTVChart()" title="TradingView — manual zone marking">📺</button>
+      </div>
+    </div>
+    <div class="chart-tf-row">
+      <button class="chart-tf" data-tf="1m">1m</button>
+      <button class="chart-tf" data-tf="5m">5m</button>
+      <button class="chart-tf active" data-tf="15m">15m</button>
+      <button class="chart-tf" data-tf="1H">1H</button>
+      <button class="chart-tf" data-tf="4H">4H</button>
+      <button class="chart-tf" data-tf="D">D</button>
+      <div class="chart-tools">
+        <div class="chart-tool" title="Zone labels toggle" onclick="toggleZoneLabels()" id="btnZoneLabels">🏷</div>
+        <div class="chart-tool" title="Fullscreen" onclick="toggleFullscreen()">⛶</div>
+      </div>
+    </div>
+
+    <!-- OUR CANVAS CHART -->
+    <div class="chart-area" id="ourChartArea">
+      <canvas id="mainCanvas"></canvas>
+      <div class="chart-overlay" id="chartOverlay">
+        <div class="chart-price-label" id="chartPriceLbl" style="display:none;"></div>
+      </div>
+      <!-- EMA legend -->
+      <div class="chart-ema-legend" id="emaLegend">
+        <div class="chart-ema-dot"><div style="width:20px;height:1.5px;background:#f59e0b;"></div><span style="color:#f59e0b;">EMA20</span></div>
+        <div class="chart-ema-dot"><div style="width:20px;height:1.5px;background:#06b6d4;"></div><span style="color:#06b6d4;">EMA50</span></div>
+        <div class="chart-ema-dot"><div style="width:20px;height:1px;background:rgba(6,182,212,.4);border-top:1px dashed rgba(6,182,212,.4);"></div><span style="color:rgba(6,182,212,.5);">FV</span></div>
+        <div class="chart-ema-dot"><div style="width:20px;height:1px;background:rgba(245,158,11,.5);border-top:1px dashed rgba(245,158,11,.5);"></div><span style="color:rgba(245,158,11,.5);">PDH/PDL</span></div>
+        <div class="chart-ema-dot"><div style="width:20px;height:1px;background:rgba(168,85,247,.5);border-top:1px dashed rgba(168,85,247,.4);"></div><span style="color:rgba(168,85,247,.5);">EQH/EQL</span></div>
+      </div>
+      <!-- Zoom controls -->
+      <div class="chart-zoom-btns">
+        <div class="chart-zoom-btn" onclick="chartZoom(-10)" title="Zoom in">+</div>
+        <div class="chart-zoom-btn" onclick="chartZoom(10)"  title="Zoom out">−</div>
+        <div class="chart-zoom-btn" onclick="chartReset()"   title="Reset view">⊡</div>
+      </div>
+    </div>
+
+    <!-- TRADINGVIEW WIDGET (shown on toggle) -->
+    <div id="tvWidget">
+      <div class="tv-banner">
+        📺 TradingView widget — use for manual zone marking.<br>
+        <span style="color:var(--gold);font-size:10px;">Zones auto-drawn on NEXUS chart are computed from live OHLC — no manual input needed.</span>
+      </div>
+      <div id="tvContainer" style="height:280px;"></div>
+    </div>
+
+    <!-- STAT PILLS -->
+    <div class="chart-stat-row">
+      <div class="chart-stat">
+        <div class="chart-stat-lbl">TREND <span id="trendIcon">↓</span></div>
+        <div class="chart-stat-val" id="statTrend" style="color:var(--sell);">BEARISH</div>
+      </div>
+      <div class="chart-stat">
+        <div class="chart-stat-lbl">VOLATILITY <span style="font-size:12px">〜</span></div>
+        <div class="chart-stat-val" id="statVol" style="color:var(--warn);">—</div>
+      </div>
+      <div class="chart-stat">
+        <div class="chart-stat-lbl">LIQUIDITY <span style="font-size:12px">▪▪▪</span></div>
+        <div class="chart-stat-val" id="statLiq" style="color:var(--buy);">—</div>
+      </div>
+      <div class="chart-stat">
+        <div class="chart-stat-lbl">🤖 AI SCORE</div>
+        <div class="chart-stat-val" id="statAI" style="color:var(--piv);">—%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRADE SETUP CARD -->
+  <div class="card" id="tradeCard">
+    <div class="card-hdr">
+      <span class="card-title">TRADE SETUP</span>
+      <div class="card-menu">···</div>
+    </div>
+    <div class="card-body">
+      <div class="setup-row">
+        <div class="setup-key">ENTRY</div>
+        <div><div class="setup-val" id="tsEntry" style="color:var(--t1);">—</div></div>
+      </div>
+      <div class="setup-row">
+        <div class="setup-key">STOP LOSS</div>
+        <div style="text-align:right">
+          <div class="setup-val" id="tsSL" style="color:var(--sell);">—</div>
+          <div class="setup-pts" id="tsSLpts" style="color:var(--sell);">— pts</div>
+        </div>
+      </div>
+      <div class="setup-divider"></div>
+      <div class="setup-row">
+        <div class="setup-key">TARGET 1</div>
+        <div style="text-align:right">
+          <div class="setup-val" id="tsTP1" style="color:var(--buy);">—</div>
+          <div class="setup-pts" id="tsTP1pts" style="color:var(--buy);">— pts</div>
+        </div>
+      </div>
+      <div class="setup-row">
+        <div class="setup-key">TARGET 2</div>
+        <div style="text-align:right">
+          <div class="setup-val" id="tsTP2" style="color:var(--buy);">—</div>
+          <div class="setup-pts" id="tsTP2pts" style="color:var(--buy);">— pts</div>
+        </div>
+      </div>
+      <div class="setup-row">
+        <div class="setup-key">TARGET 3</div>
+        <div style="text-align:right">
+          <div class="setup-val" id="tsTP3" style="color:var(--buy);">—</div>
+          <div class="setup-pts" id="tsTP3pts" style="color:var(--buy);">— pts</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-hdr" style="border-top:1px solid var(--border);">
+      <span class="card-title">RISK MANAGEMENT</span>
+      <div class="card-menu">···</div>
+    </div>
+    <div class="card-body">
+      <div class="risk-row"><div class="risk-key">RISK</div><div class="risk-val" id="rmRisk" style="color:var(--t1);">—%</div></div>
+      <div class="risk-row"><div class="risk-key">POSITION SIZE</div><div class="risk-val" id="rmLot" style="color:var(--gold);">— Lots</div></div>
+      <div class="risk-row"><div class="risk-key">ACCOUNT</div><div class="risk-val" id="rmAcct" style="color:var(--t1);">—</div></div>
+      <div class="risk-row"><div class="risk-key">MAX LOSS</div><div class="risk-val" id="rmMaxLoss" style="color:var(--sell);">—</div></div>
+      <div style="margin-top:10px;">
+        <input type="number" id="acctInput" placeholder="Enter account size $"
+          style="width:100%;padding:8px 10px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-xs);color:var(--t1);font-family:var(--mono);font-size:12px;outline:none;"
+          oninput="onAccountChange(this.value)">
+      </div>
+    </div>
+  </div>
+
+  <!-- ZED MODULES ROW -->
+  <div class="card" id="modulesRow" style="grid-column:1/-1;">
+    <div class="card-hdr">
+      <span class="card-title">ZED MODULES</span>
+      <div class="card-menu">···</div>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card" onclick="goPage('macro')">
+        <div class="module-icon" style="background:rgba(59,130,246,.12);">🌐</div>
+        <div class="module-name">ZED Macro</div>
+        <div class="module-sub">Macro Analysis</div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="module-card" onclick="goPage('liquidity')">
+        <div class="module-icon" style="background:rgba(6,182,212,.1);">💧</div>
+        <div class="module-name">ZED Liquidity</div>
+        <div class="module-sub">Liquidity Map</div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="module-card" onclick="goPage('structure')">
+        <div class="module-icon" style="background:rgba(245,166,35,.12);">📊</div>
+        <div class="module-name">ZED Structure</div>
+        <div class="module-sub">SMC & Structure</div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="module-card" onclick="goPage('execution')">
+        <div class="module-icon" style="background:rgba(239,68,68,.1);">🎯</div>
+        <div class="module-name">ZED Execution</div>
+        <div class="module-sub">Entry & Timing</div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="module-card" onclick="goPage('quant')">
+        <div class="module-icon" style="background:rgba(168,85,247,.1);">📈</div>
+        <div class="module-name">ZED Quant</div>
+        <div class="module-sub">Probability Edge</div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="module-card" onclick="goPage('journal')">
+        <div class="module-icon" style="background:rgba(34,197,94,.1);">📓</div>
+        <div class="module-name">ZED Journal</div>
+        <div class="module-sub">Trade Journal</div>
+        <div class="module-arrow">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM 3 PANELS -->
+  <div class="bottom-grid" style="grid-column:1/-1;">
+
+    <!-- NEWS FILTER -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title">NEWS FILTER</span>
+        <div class="card-menu">···</div>
+      </div>
+      <div class="news-body">
+        <div class="news-icon">🌤</div>
+        <div class="news-status" id="newsStatus">Checking calendar...</div>
+        <div class="news-detail" id="newsDetail">Loading economic events</div>
+        <button class="news-btn" onclick="goPage('macro')">View Calendar</button>
+        <div class="news-feed" id="newsFeed"></div>
+      </div>
+    </div>
+
+    <!-- MARKET SUMMARY -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title">MARKET SUMMARY</span>
+        <div class="card-menu">···</div>
+      </div>
+      <div class="card-body">
+        <div class="msum-row">
+          <div class="msum-pair">DXY</div>
+          <div style="text-align:right">
+            <div class="msum-price" id="msDXY">—</div>
+            <div class="msum-ch" id="msDXYch" style="color:var(--t3)">—</div>
+          </div>
+        </div>
+        <div class="msum-row">
+          <div class="msum-pair">US10Y</div>
+          <div style="text-align:right">
+            <div class="msum-price" id="msYield">—</div>
+            <div class="msum-ch" id="msYieldch" style="color:var(--t3)">—</div>
+          </div>
+        </div>
+        <div class="msum-row">
+          <div class="msum-pair">OIL</div>
+          <div style="text-align:right">
+            <div class="msum-price" id="msOil">—</div>
+            <div class="msum-ch" id="msOilch" style="color:var(--t3)">—</div>
+          </div>
+        </div>
+        <div class="msum-row">
+          <div class="msum-pair">SPX500</div>
+          <div style="text-align:right">
+            <div class="msum-price" id="msSPX">—</div>
+            <div class="msum-ch" id="msSPXch" style="color:var(--t3)">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKET SENTIMENT -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title">MARKET SENTIMENT</span>
+        <div class="card-menu">···</div>
+      </div>
+      <div class="card-body" style="display:flex;flex-direction:column;align-items:center;">
+        <div class="sent-gauge-wrap">
+          <canvas id="sentCanvas" width="160" height="90"></canvas>
+        </div>
+        <div class="sent-val" id="sentVal" style="color:var(--sell);">—</div>
+        <div class="sent-label" id="sentLabel" style="color:var(--sell);">LOADING</div>
+        <div class="sent-scale"><span>-100</span><span id="sentMid" style="color:var(--t2);font-size:11px;">Neutral</span><span>100</span></div>
+      </div>
+    </div>
+
+  </div><!-- end bottom-grid -->
+
+</div><!-- end dash-grid -->
+</div><!-- end dashboard page -->
+
+
+<!-- ── MACRO PAGE ── -->
+<div class="page" id="page-macro">
+<div class="mod-page">
+
+  <!-- Header stat row -->
+  <div class="mod-grid-4">
+    <div class="stat-block">
+      <div class="stat-block-lbl">DXY INDEX</div>
+      <div class="stat-block-val" id="mac-dxy" style="color:var(--warn)">—</div>
+      <div class="stat-block-sub" id="mac-dxy-ch">—</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-lbl">US 10Y YIELD</div>
+      <div class="stat-block-val" id="mac-yld" style="color:var(--sell)">—</div>
+      <div class="stat-block-sub" id="mac-yld-ch">—</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-lbl">WTI OIL</div>
+      <div class="stat-block-val" id="mac-oil" style="color:var(--gold)">—</div>
+      <div class="stat-block-sub" id="mac-oil-ch">—</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-lbl">VIX FEAR INDEX</div>
+      <div class="stat-block-val" id="mac-vix" style="color:var(--piv)">—</div>
+      <div class="stat-block-sub" id="mac-vix-sub">—</div>
+    </div>
+  </div>
+
+  <div class="mod-grid-2">
+
+    <!-- Macro Hierarchy -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">MACRO HIERARCHY</span></div>
+      <div class="card-body" id="macroHierBody">
+        <div class="data-row"><div class="data-key">Inflation Regime</div><div class="data-val" id="mh-inflation">—</div></div>
+        <div class="data-row"><div class="data-key">Rate Cycle</div><div class="data-val" id="mh-rate">—</div></div>
+        <div class="data-row"><div class="data-key">Real Yield (10Y−CPI proxy)</div><div class="data-val" id="mh-realyield">—</div></div>
+        <div class="data-row"><div class="data-key">DXY Trend</div><div class="data-val" id="mh-dxy">—</div></div>
+        <div class="data-row"><div class="data-key">VIX Regime</div><div class="data-val" id="mh-vix">—</div></div>
+        <div class="data-row" style="border-bottom:none">
+          <div class="data-key">Macro Verdict</div>
+          <div class="data-val" id="mh-verdict" style="color:var(--gold)">COMPUTING</div>
+        </div>
+        <div style="margin-top:10px;padding:8px;border-radius:6px;font-size:12px;color:var(--t2);line-height:1.6;" id="mh-detail"></div>
+      </div>
+    </div>
+
+    <!-- Regime + Seasonality -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">REGIME ENGINE</span></div>
+      <div class="card-body">
+        <div style="text-align:center;padding:12px 0;">
+          <div style="font-size:28px;font-weight:800;letter-spacing:2px;" id="mac-regime">—</div>
+          <div style="font-size:11px;color:var(--t3);margin-top:4px;">CURRENT MARKET REGIME</div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-label"><span>Macro Score</span><span id="mac-score-val">—/10</span></div>
+          <div class="prog-bg"><div class="prog-fill" id="mac-score-bar" style="width:0%;background:var(--gold)"></div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="stat-block-lbl">GOLD SEASONALITY</div>
+          <div style="font-size:13px;font-weight:600;margin:4px 0;" id="mac-season">—</div>
+          <div style="height:28px;display:flex;gap:2px;align-items:flex-end;margin:6px 0;" id="mac-season-bars"></div>
+          <div style="font-size:11px;color:var(--t3);" id="mac-season-desc">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mod-grid-2">
+    <!-- Economic Calendar -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">ECONOMIC CALENDAR — LIVE</span></div>
+      <div class="card-body" id="macroCalBody">
+        <div style="color:var(--t3);font-size:12px;">Loading events...</div>
+      </div>
+    </div>
+
+    <!-- Correlation Matrix -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">CORRELATION MATRIX</span></div>
+      <div class="card-body">
+        <div class="data-row"><div class="data-key">DXY ↑ → Gold</div><div class="data-val" id="corr-dxy">—</div></div>
+        <div class="data-row"><div class="data-key">Yield ↑ → Gold</div><div class="data-val" id="corr-yld">—</div></div>
+        <div class="data-row"><div class="data-key">VIX ↑ → Gold</div><div class="data-val" id="corr-vix">—</div></div>
+        <div class="data-row"><div class="data-key">Oil ↑ → Gold</div><div class="data-val" id="corr-oil">—</div></div>
+        <div class="data-row" style="border-bottom:none"><div class="data-key">SPX ↑ → Gold</div><div class="data-val" id="corr-spx">—</div></div>
+        <div style="margin-top:10px;padding:8px;border-radius:6px;background:var(--bg2);font-size:11px;color:var(--t3);line-height:1.6;" id="corr-insight">Computing correlations from live data...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-liquidity">
+<div class="mod-page">
+
+  <div class="mod-grid-2">
+    <!-- Live Zones -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title">LIVE ZONES — AUTO-DETECTED</span>
+        <span style="font-size:10px;color:var(--t3);">Computed from OHLC swing data</span>
+      </div>
+      <div class="card-body" id="liqZonesBody">
+        <div style="color:var(--t3);font-size:12px;">Loading zones...</div>
+      </div>
+    </div>
+
+    <!-- Structure Status -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">STRUCTURE STATUS</span></div>
+      <div class="card-body">
+        <div class="data-row"><div class="data-key">Break of Structure</div><div class="data-val" id="liq-bos">—</div></div>
+        <div class="data-row"><div class="data-key">Change of Character</div><div class="data-val" id="liq-choch">—</div></div>
+        <div class="data-row"><div class="data-key">Liquidity Sweep</div><div class="data-val" id="liq-sweep">—</div></div>
+        <div class="data-row"><div class="data-key">Sweep Quality</div><div class="data-val" id="liq-sweep-q">—</div></div>
+        <div class="data-row"><div class="data-key">Active FVGs</div><div class="data-val" id="liq-fvg-count">—</div></div>
+        <div class="data-row" style="border-bottom:none"><div class="data-key">HTF Bias</div><div class="data-val" id="liq-htfbias">—</div></div>
+        <div style="margin-top:10px;padding:8px;border-radius:6px;background:var(--bg2);font-size:12px;color:var(--t2);line-height:1.6;" id="liq-narrative">Analyzing structure...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADX / DMI Engine -->
+  <div class="card">
+    <div class="card-hdr"><span class="card-title">⚡ ADX / DMI ENGINE — TREND STRENGTH</span></div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+        <div>
+          <div class="adx-row">
+            <div class="adx-label" style="color:var(--cyan);">ADX</div>
+            <div class="adx-bar-bg"><div class="adx-bar-fill" id="adx-bar" style="width:0%;background:linear-gradient(90deg,rgba(6,182,212,.4),var(--cyan))"></div></div>
+            <div class="adx-val" style="color:var(--cyan);" id="adx-val">—</div>
+          </div>
+          <div class="adx-row">
+            <div class="adx-label" style="color:var(--buy);">+DI</div>
+            <div class="adx-bar-bg"><div class="adx-bar-fill" id="dip-bar" style="width:0%;background:var(--buy)"></div></div>
+            <div class="adx-val" style="color:var(--buy);" id="dip-val">—</div>
+          </div>
+          <div class="adx-row" style="margin-bottom:0">
+            <div class="adx-label" style="color:var(--sell);">-DI</div>
+            <div class="adx-bar-bg"><div class="adx-bar-fill" id="dim-bar" style="width:0%;background:var(--sell)"></div></div>
+            <div class="adx-val" style="color:var(--sell);" id="dim-val">—</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="data-row" style="padding:4px 0;"><div class="data-key">Trend Signal</div><div class="data-val" id="adx-signal">—</div></div>
+          <div class="data-row" style="padding:4px 0;"><div class="data-key">Trend Strength</div><div class="data-val" id="adx-trend">—</div></div>
+          <div class="data-row" style="border:none;padding:4px 0;"><div class="data-key">DI Crossover</div><div class="data-val" id="adx-cross">—</div></div>
+        </div>
+        <div style="padding:10px;background:var(--bg2);border-radius:8px;font-size:11px;color:var(--t2);line-height:1.7;" id="adx-interpret">Waiting for price data...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod-grid-2">
+    <!-- Institutional Algo Detection -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title">INSTITUTIONAL ALGO DETECTION</span>
+        <span id="of-badge" class="ohlc-badge sim">SIMULATED</span>
+      </div>
+      <div class="card-body" id="algoDetBody">
+        <div class="algo-card">
+          <div class="algo-hdr"><div class="algo-name" style="color:var(--blue);">TWAP ACCUMULATION</div><div class="algo-conf" id="algo-twap-c" style="color:var(--blue);">—%</div></div>
+          <div class="algo-desc" id="algo-twap-d">Detecting steady directional buying at consistent intervals...</div>
+          <div class="prog-bg"><div class="prog-fill" id="algo-twap-b" style="width:0%;background:var(--blue)"></div></div>
+        </div>
+        <div class="algo-card">
+          <div class="algo-hdr"><div class="algo-name" style="color:var(--piv);">VWAP DEFENSE</div><div class="algo-conf" id="algo-vwap-c" style="color:var(--piv);">—%</div></div>
+          <div class="algo-desc" id="algo-vwap-d">Monitoring price proximity to regression fair value...</div>
+          <div class="prog-bg"><div class="prog-fill" id="algo-vwap-b" style="width:0%;background:var(--piv)"></div></div>
+        </div>
+        <div class="algo-card">
+          <div class="algo-hdr"><div class="algo-name" style="color:var(--sell);">STOP HUNT ALGO</div><div class="algo-conf" id="algo-stop-c" style="color:var(--sell);">—%</div></div>
+          <div class="algo-desc" id="algo-stop-d">Scanning for spike-and-reverse patterns beyond key levels...</div>
+          <div class="prog-bg"><div class="prog-fill" id="algo-stop-b" style="width:0%;background:var(--sell)"></div></div>
+        </div>
+        <div class="algo-card">
+          <div class="algo-hdr"><div class="algo-name" style="color:var(--cyan);">MOMENTUM CHASE</div><div class="algo-conf" id="algo-mom-c" style="color:var(--cyan);">—%</div></div>
+          <div class="algo-desc" id="algo-mom-d">Monitoring CTA trend-following acceleration signals...</div>
+          <div class="prog-bg"><div class="prog-fill" id="algo-mom-b" style="width:0%;background:var(--cyan)"></div></div>
+        </div>
+        <!-- ORDER FLOW REAL DATA SECTION — shown when OANDA connected -->
+        <div id="of-live-section" style="display:none;margin-top:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:8px 10px;background:var(--buydim);border:1px solid var(--buyborder);border-radius:6px;">
+            <div style="font-size:11px;font-weight:600;color:var(--buy);">🟢 LIVE OANDA ORDER FLOW</div>
+            <div style="font-size:10px;color:var(--t3);font-family:var(--mono);" id="of-latency">—ms</div>
+          </div>
+          <!-- Bid/Ask Imbalance -->
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:5px;">ORDER BOOK IMBALANCE — REAL BID/ASK</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <div style="font-size:11px;color:var(--buy);font-weight:700;width:32px;">BID</div>
+              <div style="flex:1;height:10px;background:var(--bg3);border-radius:5px;overflow:hidden;position:relative;">
+                <div id="of-bid-bar" style="position:absolute;left:0;top:0;bottom:0;background:rgba(34,197,94,.5);transition:width .4s;width:50%"></div>
+                <div id="of-ask-bar" style="position:absolute;right:0;top:0;bottom:0;background:rgba(239,68,68,.5);transition:width .4s;width:50%"></div>
+              </div>
+              <div style="font-size:11px;color:var(--sell);font-weight:700;width:32px;text-align:right;">ASK</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);font-weight:700;">
+              <span style="color:var(--buy);">BID <span id="of-bid-pct">—%</span></span>
+              <span id="of-imbalance" style="color:var(--gold);">BALANCED</span>
+              <span style="color:var(--sell);">ASK <span id="of-ask-pct">—%</span></span>
+            </div>
+          </div>
+          <!-- Live Spread -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
+            <div style="background:var(--bg2);border-radius:6px;padding:7px;text-align:center;border:1px solid var(--border);">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:3px;">BID</div>
+              <div style="font-size:13px;font-weight:700;color:var(--buy);font-family:var(--mono);" id="of-bid">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:6px;padding:7px;text-align:center;border:1px solid var(--goldborder);">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:3px;">SPREAD</div>
+              <div style="font-size:13px;font-weight:700;color:var(--gold);font-family:var(--mono);" id="of-spread">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:6px;padding:7px;text-align:center;border:1px solid var(--border);">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:3px;">ASK</div>
+              <div style="font-size:13px;font-weight:700;color:var(--sell);font-family:var(--mono);" id="of-ask">—</div>
+            </div>
+          </div>
+          <!-- Cumulative Delta -->
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:5px;">CUMULATIVE DELTA — REAL AGGRESSOR VOLUME</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="font-size:22px;font-weight:900;font-family:var(--mono);min-width:80px;" id="of-delta">+0</div>
+              <div style="flex:1;">
+                <div style="position:relative;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;">
+                  <div style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--border2);"></div>
+                  <div id="of-delta-bar" style="position:absolute;top:0;bottom:0;border-radius:4px;transition:all .4s;background:var(--buy);width:0%;left:50%;"></div>
+                </div>
+                <div style="font-size:10px;color:var(--t3);margin-top:3px;" id="of-delta-desc">Balanced order flow</div>
+              </div>
+              <div style="font-size:12px;font-weight:700;" id="of-delta-sig">—</div>
+            </div>
+          </div>
+          <!-- Live Tape -->
+          <div>
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:5px;">LIVE TAPE — LARGE PRINTS</div>
+            <div id="of-tape" style="max-height:80px;overflow-y:auto;display:flex;flex-direction:column;gap:3px;"></div>
+          </div>
+          <!-- Tick Stats -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px;">
+            <div style="text-align:center;padding:6px;background:var(--bg2);border-radius:5px;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:2px;">TICKS/MIN</div>
+              <div style="font-size:13px;font-weight:700;color:var(--cyan);font-family:var(--mono);" id="of-tpm">—</div>
+            </div>
+            <div style="text-align:center;padding:6px;background:var(--bg2);border-radius:5px;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:2px;">TOTAL TICKS</div>
+              <div style="font-size:13px;font-weight:700;color:var(--t2);font-family:var(--mono);" id="of-ticks">—</div>
+            </div>
+            <div style="text-align:center;padding:6px;background:var(--bg2);border-radius:5px;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:2px;">WS STATUS</div>
+              <div style="font-size:10px;font-weight:700;" id="of-ws-status">—</div>
+            </div>
+          </div>
+        </div>
+        <!-- SIMULATED DISCLAIMER — shown when no OANDA key -->
+        <div id="of-sim-section" style="margin-top:8px;padding:10px;border-radius:6px;background:var(--warndim);border:1px solid rgba(245,158,11,.3);">
+          <div style="font-size:12px;font-weight:600;color:var(--warn);margin-bottom:5px;">⚠ SIMULATED MICROSTRUCTURE</div>
+          <div style="font-size:11px;color:var(--t3);line-height:1.7;">Order flow simulated from price action heuristics — not real DOM data. Connect OANDA API in Settings for real bid/ask WebSocket stream.</div>
+          <button onclick="openSettings();document.querySelector('[data-stab=data]').click();" style="margin-top:8px;padding:5px 12px;border-radius:5px;background:var(--bg3);border:1px solid var(--goldborder);color:var(--gold);font-size:11px;cursor:pointer;font-family:var(--font);">⚙ Connect OANDA in Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heat Map -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">PRICE LEVEL HEAT MAP</span></div>
+      <div class="card-body" id="heatMapBody" style="padding:8px;">
+        <div style="color:var(--t3);font-size:12px;">Loading heat map...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── STRUCTURE PAGE ── -->
+<div class="page" id="page-structure">
+<div class="mod-page">
+
+  <!-- Top-Down Analysis -->
+  <div class="card">
+    <div class="card-hdr"><span class="card-title">TOP-DOWN ANALYSIS — 5 LAYER CASCADE</span></div>
+    <div class="card-body" id="tdaBody">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;" id="tdaLayers">
+        <!-- Rendered by JS -->
+        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;">D1 HTF</div>
+          <div style="font-size:20px;" id="tda-d1">—</div>
+          <div style="font-size:9px;color:var(--t3);margin-top:4px;" id="tda-d1-lbl">Awaiting</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;">H4 SWEEP</div>
+          <div style="font-size:20px;" id="tda-h4">—</div>
+          <div style="font-size:9px;color:var(--t3);margin-top:4px;" id="tda-h4-lbl">Awaiting</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;">H1 BOS/CHoCH</div>
+          <div style="font-size:20px;" id="tda-h1">—</div>
+          <div style="font-size:9px;color:var(--t3);margin-top:4px;" id="tda-h1-lbl">Awaiting</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;">M15 OB/FVG</div>
+          <div style="font-size:20px;" id="tda-m15">—</div>
+          <div style="font-size:9px;color:var(--t3);margin-top:4px;" id="tda-m15-lbl">Awaiting</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;">M1 TRIGGER</div>
+          <div style="font-size:20px;" id="tda-m1">—</div>
+          <div style="font-size:9px;color:var(--t3);margin-top:4px;" id="tda-m1-lbl">Awaiting</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:10px;background:var(--bg2);border-radius:8px;">
+        <div style="font-size:13px;color:var(--t2);" id="tda-summary">Analyzing structure layers...</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:11px;color:var(--t3);">GRADE</div>
+          <div style="font-size:28px;font-weight:800;" id="tda-grade">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod-grid-2">
+    <!-- SMC Grid -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">SMART MONEY CONCEPTS</span></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:4px;">BOS</div>
+            <div style="font-size:14px;font-weight:700;" id="smc-bos">—</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Break of Structure</div>
+          </div>
+          <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:4px;">CHoCH</div>
+            <div style="font-size:14px;font-weight:700;" id="smc-choch">—</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Change of Character</div>
+          </div>
+          <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:4px;">ACTIVE FVGs</div>
+            <div style="font-size:14px;font-weight:700;" id="smc-fvg">—</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Fair Value Gaps</div>
+          </div>
+          <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:4px;">SWEEP</div>
+            <div style="font-size:14px;font-weight:700;" id="smc-sweep">—</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Liquidity Sweep</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding:8px;border-radius:6px;background:var(--bg2);font-size:12px;color:var(--t2);line-height:1.6;" id="smc-insight">Computing SMC analysis...</div>
+      </div>
+    </div>
+
+    <!-- Multi-TF Overview -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">MULTI-TIMEFRAME BIAS</span></div>
+      <div class="card-body" id="mtfBody">
+        <div class="data-row"><div class="data-key">Daily (D1)</div><div class="data-val" id="mtf-d1">—</div></div>
+        <div class="data-row"><div class="data-key">4 Hour (H4)</div><div class="data-val" id="mtf-h4">—</div></div>
+        <div class="data-row"><div class="data-key">1 Hour (H1)</div><div class="data-val" id="mtf-h1">—</div></div>
+        <div class="data-row"><div class="data-key">15 Min (M15)</div><div class="data-val" id="mtf-m15">—</div></div>
+        <div class="data-row" style="border:none"><div class="data-key">Overall Alignment</div><div class="data-val" id="mtf-align">—</div></div>
+        <div class="prog-wrap" style="margin-top:8px;">
+          <div class="prog-label"><span>Confluence Score</span><span id="mtf-score">—%</span></div>
+          <div class="prog-bg"><div class="prog-fill" id="mtf-bar" style="width:0%;background:var(--piv)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-execution">
+<div class="mod-page">
+
+  <div class="mod-grid-2">
+    <!-- Precision Entry -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">PRECISION ENTRY PLAN</span></div>
+      <div class="card-body">
+        <div style="text-align:center;padding:8px 0;margin-bottom:12px;">
+          <div style="font-size:32px;font-weight:800;" id="exec-dir" style="color:var(--t3)">WAIT</div>
+          <div style="font-size:13px;color:var(--t3);margin-top:2px;" id="exec-grade">Grade — | Confidence —%</div>
+        </div>
+        <div class="data-row"><div class="data-key">Entry Price</div><div class="data-val" id="exec-entry" style="color:var(--t1)">—</div></div>
+        <div class="data-row"><div class="data-key">Stop Loss</div>
+          <div><div class="data-val" id="exec-sl" style="color:var(--sell)">—</div><div style="font-size:10px;color:var(--sell);" id="exec-sl-pts">— pts risk</div></div></div>
+        <div class="data-row"><div class="data-key">Target 1 (1.2R)</div>
+          <div><div class="data-val" id="exec-tp1" style="color:var(--buy)">—</div><div style="font-size:10px;color:var(--buy);" id="exec-tp1-pts">— pts</div></div></div>
+        <div class="data-row"><div class="data-key">Target 2 (2.0R)</div>
+          <div><div class="data-val" id="exec-tp2" style="color:var(--buy)">—</div><div style="font-size:10px;color:var(--buy);" id="exec-tp2-pts">— pts</div></div></div>
+        <div class="data-row" style="border:none"><div class="data-key">Target 3 (3.2R)</div>
+          <div><div class="data-val" id="exec-tp3" style="color:var(--buy)">—</div><div style="font-size:10px;color:var(--buy);" id="exec-tp3-pts">— pts</div></div></div>
+        <!-- Zone visualizer bar -->
+        <div style="margin-top:12px;background:var(--bg2);border-radius:8px;padding:10px;">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;letter-spacing:.8px;">ZONE ENTRY VISUALIZER</div>
+          <div style="position:relative;height:24px;background:var(--bg3);border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div id="exec-zone-sell" style="position:absolute;top:0;bottom:0;background:rgba(239,68,68,.25);border-right:2px solid var(--sell);"></div>
+            <div id="exec-zone-buy"  style="position:absolute;top:0;bottom:0;background:rgba(34,197,94,.15);border-left:2px solid var(--buy);"></div>
+            <div id="exec-price-marker" style="position:absolute;top:0;bottom:0;width:2px;background:var(--gold);box-shadow:0 0 6px var(--gold);"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--t3);margin-top:3px;font-family:var(--mono);">
+            <span id="exec-zone-lo">—</span><span style="color:var(--gold);">▲ LIVE</span><span id="exec-zone-hi">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Entry Gate Checklist -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">ENTRY GATE CHECKLIST</span></div>
+      <div class="card-body">
+        <div id="gatesBody">
+          <div class="sig-check unmet" id="gate-struct"><div class="sig-check-ico">1</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">Structure — BOS / CHoCH confirmed</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-struct-detail">Awaiting structure data</div>
+          </div></div>
+          <div class="sig-check unmet" id="gate-adx"><div class="sig-check-ico">2</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">ADX ≥ 25 — trend confirmed</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-adx-detail">ADX computing...</div>
+          </div></div>
+          <div class="sig-check unmet" id="gate-zone"><div class="sig-check-ico">3</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">Price in institutional zone</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-zone-detail">Awaiting zone detection</div>
+          </div></div>
+          <div class="sig-check unmet" id="gate-sweep"><div class="sig-check-ico">4</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">Liquidity sweep complete</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-sweep-detail">Monitoring for sweep</div>
+          </div></div>
+          <div class="sig-check unmet" id="gate-macro"><div class="sig-check-ico">5</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">Macro aligned — DXY / Yield</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-macro-detail">Loading macro data</div>
+          </div></div>
+          <div class="sig-check unmet" id="gate-sess"><div class="sig-check-ico">6</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">Kill zone timing</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-sess-detail">London / NY open</div>
+          </div></div>
+          <div class="sig-check unmet" id="gate-news"><div class="sig-check-ico">7</div><div>
+            <div class="sig-check-txt" style="font-weight:600;">No news blackout active</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:1px;" id="gate-news-detail">Checking calendar...</div>
+          </div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="prog-wrap">
+            <div class="prog-label"><span>Entry Readiness</span><span id="gates-pct">0/7</span></div>
+            <div class="prog-bg"><div class="prog-fill" id="gates-bar" style="width:0%;background:var(--gold)"></div></div>
+          </div>
+          <div style="margin-top:8px;padding:8px;border-radius:6px;font-size:12px;font-weight:600;text-align:center;" id="gates-verdict"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod-grid-2">
+    <!-- Risk Engine -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">RISK ENGINE</span></div>
+      <div class="card-body">
+        <div class="data-row"><div class="data-key">Account Equity</div><div class="data-val" id="re-equity" style="color:var(--t1)">—</div></div>
+        <div class="data-row"><div class="data-key">Risk Per Trade</div><div class="data-val" id="re-risk" style="color:var(--gold)">—%</div></div>
+        <div class="data-row"><div class="data-key">Risk Amount ($)</div><div class="data-val" id="re-riskusd" style="color:var(--warn)">—</div></div>
+        <div class="data-row"><div class="data-key">Lot Size</div><div class="data-val" id="re-lot" style="color:var(--gold)">— lots</div></div>
+        <div class="data-row"><div class="data-key">SL Distance</div><div class="data-val" id="re-sl-dist" style="color:var(--sell)">— pts</div></div>
+        <div class="data-row" style="border:none"><div class="data-key">Potential at TP1</div><div class="data-val" id="re-pnl" style="color:var(--buy)">—</div></div>
+        <div class="smod-divider"></div>
+        <div class="prog-wrap">
+          <div class="prog-label"><span>Daily Risk Used</span><span id="re-daily-pct">0% / 2%</span></div>
+          <div class="prog-bg"><div class="prog-fill" id="re-daily-bar" style="width:0%;background:var(--buy)"></div></div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-label"><span>Current Drawdown</span><span id="re-dd">0%</span></div>
+          <div class="prog-bg"><div class="prog-fill" id="re-dd-bar" style="width:0%;background:var(--sell)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario Engine -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">SCENARIO ENGINE</span></div>
+      <div class="card-body" id="scenBody">
+        <div class="scenario-card" id="scen-a">
+          <div class="scenario-hdr">
+            <div class="scenario-name" id="scen-a-name">SCENARIO A — LOADING</div>
+            <div class="scenario-pct" id="scen-a-pct">—%</div>
+          </div>
+          <div class="prog-bg" style="margin-bottom:8px;"><div class="prog-fill" id="scen-a-bar" style="width:0%;background:var(--sell)"></div></div>
+          <div class="scenario-txt" id="scen-a-txt">Computing from live brain output...</div>
+        </div>
+        <div class="scenario-card" id="scen-b">
+          <div class="scenario-hdr">
+            <div class="scenario-name" id="scen-b-name">SCENARIO B — LOADING</div>
+            <div class="scenario-pct" id="scen-b-pct">—%</div>
+          </div>
+          <div class="prog-bg" style="margin-bottom:8px;"><div class="prog-fill" id="scen-b-bar" style="width:0%;background:var(--buy)"></div></div>
+          <div class="scenario-txt" id="scen-b-txt">Awaiting data...</div>
+        </div>
+        <div class="scenario-card" id="scen-c">
+          <div class="scenario-hdr">
+            <div class="scenario-name" style="color:var(--warn)">SCENARIO C — CHAOS / NEWS</div>
+            <div class="scenario-pct" id="scen-c-pct">—%</div>
+          </div>
+          <div class="prog-bg" style="margin-bottom:8px;"><div class="prog-fill" id="scen-c-bar" style="width:0%;background:var(--warn)"></div></div>
+          <div class="scenario-txt" id="scen-c-txt">News catalyst or unexpected breakout scenario.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+<!-- ── QUANT PAGE ── -->
+<div class="page" id="page-quant">
+<div class="mod-page">
+
+  <!-- Dual Scorecard -->
+  <div class="mod-grid-2">
+    <div class="card" style="border-color:var(--pivborder);">
+      <div class="card-hdr" style="background:var(--pivdim);"><span class="card-title" style="color:var(--piv);">ZED AI — ML SCORE</span></div>
+      <div class="card-body" style="text-align:center;">
+        <div style="font-size:56px;font-weight:900;color:var(--piv);line-height:1;" id="q-ai-score">—</div>
+        <div style="font-size:12px;color:var(--t3);margin:4px 0 12px;">Random Forest · 10 Trees</div>
+        <div class="prog-wrap"><div class="prog-label"><span>Structure</span><span id="q-ai-struct">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-ai-struct-b" style="width:0%;background:var(--gold)"></div></div></div>
+        <div class="prog-wrap"><div class="prog-label"><span>Quant/Stat</span><span id="q-ai-quant">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-ai-quant-b" style="width:0%;background:var(--cyan)"></div></div></div>
+        <div class="prog-wrap"><div class="prog-label"><span>Macro/USD</span><span id="q-ai-macro">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-ai-macro-b" style="width:0%;background:var(--warn)"></div></div></div>
+        <div class="prog-wrap"><div class="prog-label"><span>Regression</span><span id="q-ai-reg">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-ai-reg-b" style="width:0%;background:var(--cyan)"></div></div></div>
+        <div class="prog-wrap" style="margin-bottom:0"><div class="prog-label"><span>ADX Strength</span><span id="q-ai-adx">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-ai-adx-b" style="width:0%;background:var(--piv)"></div></div></div>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--goldborder);">
+      <div class="card-hdr" style="background:var(--golddim);"><span class="card-title" style="color:var(--gold);">TRADE CONFIRMATION</span></div>
+      <div class="card-body" style="text-align:center;">
+        <div style="font-size:56px;font-weight:900;color:var(--gold);line-height:1;" id="q-tc-score">—</div>
+        <div style="font-size:12px;color:var(--t3);margin:4px 0 12px;">5-Gate Confirmation</div>
+        <div class="prog-wrap"><div class="prog-label"><span>In Zone</span><span id="q-tc-zone">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-tc-zone-b" style="width:0%;background:var(--gold)"></div></div></div>
+        <div class="prog-wrap"><div class="prog-label"><span>Volume</span><span id="q-tc-vol">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-tc-vol-b" style="width:0%;background:var(--warn)"></div></div></div>
+        <div class="prog-wrap"><div class="prog-label"><span>Rejection</span><span id="q-tc-rej">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-tc-rej-b" style="width:0%;background:var(--sell)"></div></div></div>
+        <div class="prog-wrap"><div class="prog-label"><span>Session</span><span id="q-tc-sess">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-tc-sess-b" style="width:0%;background:var(--buy)"></div></div></div>
+        <div class="prog-wrap" style="margin-bottom:0"><div class="prog-label"><span>DXY Align</span><span id="q-tc-dxy">—</span></div><div class="prog-bg"><div class="prog-fill" id="q-tc-dxy-b" style="width:0%;background:var(--piv)"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified verdict -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;">
+      <div>
+        <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:4px;">UNIFIED ADAPTIVE DECISION</div>
+        <div style="font-size:22px;font-weight:800;" id="q-unified-lbl">COMPUTING...</div>
+        <div style="font-size:12px;color:var(--t3);margin-top:2px;" id="q-unified-sub">Bayesian posterior · 6-strategy blend</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:48px;font-weight:900;color:var(--cyan);" id="q-unified-score">—</div>
+        <div style="font-size:10px;color:var(--t3);">EDGE %</div>
+      </div>
+    </div>
+    <div style="display:flex;height:12px;margin:0 20px 16px;gap:1px;border-radius:6px;overflow:hidden;">
+      <div id="bayes-buy-bar" style="background:rgba(34,197,94,.6);transition:width .6s;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#000;" title="P(BUY)"></div>
+      <div id="bayes-neut-bar" style="background:rgba(245,166,35,.35);transition:width .6s;" title="P(NEUTRAL)"></div>
+      <div id="bayes-sell-bar" style="background:rgba(239,68,68,.6);transition:width .6s;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#000;" title="P(SELL)"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:0 20px 12px;font-size:11px;font-weight:700;">
+      <span style="color:var(--buy)">P(BUY) <span id="bayes-pbuy">—%</span></span>
+      <span style="color:var(--gold);font-size:10px">P(N) <span id="bayes-pneut">—%</span></span>
+      <span style="color:var(--sell)">P(SELL) <span id="bayes-psell">—%</span></span>
+    </div>
+  </div>
+
+  <div class="mod-grid-2">
+    <!-- Monte Carlo -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">ZED QUANT — 500 PATH SIMULATION</span></div>
+      <div class="card-body">
+        <div class="canvas-wrap" style="height:100px;margin-bottom:10px;">
+          <canvas id="mcCanvas" style="width:100%;height:100px;display:block;"></canvas>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+          <div style="text-align:center;padding:8px;background:var(--selldim);border-radius:6px;border:1px solid var(--sellborder);">
+            <div style="font-size:9px;color:var(--sell);font-weight:600;margin-bottom:3px;">P10 BEAR</div>
+            <div style="font-size:13px;font-weight:700;color:var(--sell);font-family:var(--mono);" id="mc-p10">—</div>
+          </div>
+          <div style="text-align:center;padding:8px;background:var(--golddim);border-radius:6px;border:1px solid var(--goldborder);">
+            <div style="font-size:9px;color:var(--gold);font-weight:600;margin-bottom:3px;">P50 BASE</div>
+            <div style="font-size:13px;font-weight:700;color:var(--gold);font-family:var(--mono);" id="mc-p50">—</div>
+          </div>
+          <div style="text-align:center;padding:8px;background:var(--buydim);border-radius:6px;border:1px solid var(--buyborder);">
+            <div style="font-size:9px;color:var(--buy);font-weight:600;margin-bottom:3px;">P90 BULL</div>
+            <div style="font-size:13px;font-weight:700;color:var(--buy);font-family:var(--mono);" id="mc-p90">—</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.6;padding:8px;background:var(--bg2);border-radius:6px;border-left:2px solid var(--blue);" id="mc-insight">Running ZED Quant simulation...</div>
+      </div>
+    </div>
+
+    <!-- ML Engine -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">ML ENGINE — RANDOM FOREST</span></div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:10px;background:var(--bg2);border-radius:8px;">
+          <div style="font-size:36px;font-weight:900;" id="ml-grade-big">—</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;" id="ml-decision">WAIT</div>
+            <div style="font-size:11px;color:var(--t3);" id="ml-prob">Probability: —%</div>
+          </div>
+          <div style="margin-left:auto;text-align:right;">
+            <div style="font-size:10px;color:var(--t3);">MODEL STATUS</div>
+            <div style="font-size:11px;font-weight:600;" id="ml-status">Collecting data</div>
+          </div>
+        </div>
+        <div class="prog-wrap"><div class="prog-label"><span>ML Score</span><span id="ml-score-val">—</span></div><div class="prog-bg"><div class="prog-fill" id="ml-score-bar" style="width:50%;background:var(--gold)"></div></div></div>
+        <div class="data-row"><div class="data-key">Training Samples</div><div class="data-val" id="ml-samples">—</div></div>
+        <div class="data-row"><div class="data-key">Model Accuracy</div><div class="data-val" id="ml-accuracy">—</div></div>
+        <div class="data-row" style="border:none"><div class="data-key">Backtest Win Rate</div><div class="data-val" id="ml-btwr" style="color:var(--buy)">—</div></div>
+        <div style="margin-top:8px;font-size:11px;color:var(--t2);line-height:1.6;padding:8px;background:var(--bg2);border-radius:6px;" id="ml-insight">Collecting training samples...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="page" id="page-journal">
+<div class="mod-page">
+
+  <!-- Stats row -->
+  <div class="mod-grid-4">
+    <div class="stat-block">
+      <div class="stat-block-lbl">WIN RATE</div>
+      <div class="stat-block-val" id="jnl-wr" style="color:var(--buy)">—%</div>
+      <div class="stat-block-sub" id="jnl-wr-sub">— trades</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-lbl">AVG R:R</div>
+      <div class="stat-block-val" id="jnl-rr" style="color:var(--gold)">1:—</div>
+      <div class="stat-block-sub">Risk-Reward Ratio</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-lbl">ML SAMPLES</div>
+      <div class="stat-block-val" id="jnl-samples" style="color:var(--cyan)">—</div>
+      <div class="stat-block-sub">Training dataset</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-lbl">ML ACCURACY</div>
+      <div class="stat-block-val" id="jnl-acc" style="color:var(--piv)">—%</div>
+      <div class="stat-block-sub">In-sample</div>
+    </div>
+  </div>
+
+  <!-- Trade Table -->
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">TRADE JOURNAL — AUTO-LOGGED</span>
+      <button onclick="exportJournal()" style="padding:5px 12px;border-radius:6px;background:var(--bg3);border:1px solid var(--border2);color:var(--t2);font-size:11px;cursor:pointer;font-family:var(--font);">⬇ Export CSV</button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="j-table">
+        <thead>
+          <tr>
+            <th>DATE/TIME</th><th>SIGNAL</th><th>ENTRY</th><th>SL</th><th>TP1</th><th>GRADE</th><th>CONFIDENCE</th><th>SESSION</th><th>OUTCOME</th>
+          </tr>
+        </thead>
+        <tbody id="jnlBody">
+          <tr><td colspan="9" style="text-align:center;color:var(--t3);padding:20px;">No trades logged yet. Signals are auto-logged when Grade B+ setups are detected.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mod-grid-2">
+    <!-- System Audit Log -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">SYSTEM AUDIT LOG</span></div>
+      <div style="max-height:280px;overflow-y:auto;padding:8px;" id="auditLog">
+        <div style="font-size:11px;color:var(--t3);padding:8px;text-align:center;">Audit log loading...</div>
+      </div>
+    </div>
+
+    <!-- Performance Charts -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">EQUITY CURVE — BACKTEST</span></div>
+      <div class="card-body">
+        <div class="canvas-wrap" style="height:120px;margin-bottom:10px;">
+          <canvas id="btCurve" style="width:100%;height:120px;display:block;"></canvas>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:var(--bg2);border-radius:6px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:var(--t3);margin-bottom:3px;">BACKTEST WIN RATE</div>
+            <div style="font-size:18px;font-weight:700;color:var(--buy);" id="bt-wr">—%</div>
+          </div>
+          <div style="background:var(--bg2);border-radius:6px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:var(--t3);margin-bottom:3px;">AVG R:R</div>
+            <div style="font-size:18px;font-weight:700;color:var(--gold);" id="bt-rr">1:—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+    <div class="mod-page" style="padding:0;">
+  <!-- Settings modal is a floating overlay triggered by the avatar button -->
+  <!-- This page shows a quick-access settings summary -->
+  <div style="padding:16px;font-size:12px;color:var(--t3);text-align:center;padding-top:40px;">
+    <div style="font-size:32px;margin-bottom:12px;">⚙</div>
+    <div style="font-size:14px;font-weight:700;color:var(--t1);margin-bottom:6px;">Settings</div>
+    <div style="margin-bottom:16px;">Tap your avatar (top-right) to open the full settings panel.</div>
+    <button onclick="openSettings()" style="padding:10px 24px;background:var(--gold);border:none;border-radius:8px;color:#000;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);">Open Settings</button>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- end app -->
+
+<!-- ══════════════════════════════════════════
+     BOTTOM NAV
+══════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+SETTINGS MODAL
+══════════════════════════════════════════ -->
+<div id="settingsModal">
+<div class="smod-box">
+  <!-- Header -->
+  <div class="smod-hdr">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;font-size:14px;">N</div>
+      <span style="font-weight:700;font-size:14px;">NEXUS Settings</span>
+    </div>
+    <div onclick="closeSettings()" style="cursor:pointer;color:var(--t3);font-size:20px;line-height:1;padding:4px;">✕</div>
+  </div>
+  <!-- Tabs -->
+  <div class="smod-tabs">
+    <div class="smod-tab active" data-stab="general">General</div>
+    <div class="smod-tab" data-stab="data">Data</div>
+    <div class="smod-tab" data-stab="alerts" id="stab-tab-alerts">Alerts</div>
+    <div class="smod-tab" data-stab="account">Account</div>
+  </div>
+  <!-- Tab contents -->
+  <div class="smod-body">
+
+    <!-- GENERAL TAB -->
+    <div class="smod-tab-content active" id="stab-general">
+      <div class="smod-section">
+        <div class="smod-section-title">Risk Management</div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-equity">Account Equity ($)</label>
+          <input class="smod-input" id="set-equity" type="number" placeholder="25000" min="0">
+        </div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-risk">Risk Per Trade (%)</label>
+          <input class="smod-input" id="set-risk" type="number" placeholder="1.0" min="0.1" max="5" step="0.1">
+        </div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-maxloss">Max Daily Loss (%)</label>
+          <input class="smod-input" id="set-maxloss" type="number" placeholder="2.0" min="0.5" max="10" step="0.5">
+        </div>
+      </div>
+      <div class="smod-divider"></div>
+      <div class="smod-section">
+        <div class="smod-section-title">Display</div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-tz">Timezone</label>
+          <select class="smod-input" id="set-tz">
+            <option value="Asia/Karachi">PKT — Karachi (UTC+5)</option>
+            <option value="Europe/London">GMT/BST — London</option>
+            <option value="America/New_York">EST/EDT — New York</option>
+            <option value="America/Chicago">CST/CDT — Chicago</option>
+            <option value="Europe/Berlin">CET/CEST — Frankfurt</option>
+            <option value="Asia/Dubai">GST — Dubai (UTC+4)</option>
+            <option value="Asia/Tokyo">JST — Tokyo (UTC+9)</option>
+            <option value="UTC">UTC</option>
+          </select>
+        </div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-chart-mode">Default Chart</label>
+          <select class="smod-input" id="set-chart-mode">
+            <option value="nexus">NEXUS Chart (auto-zones)</option>
+            <option value="tv">TradingView Widget</option>
+          </select>
+        </div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-min-grade">Minimum Signal Grade</label>
+          <select class="smod-input" id="set-min-grade">
+            <option value="A">Grade A only (highest conviction)</option>
+            <option value="B">Grade B+ (standard)</option>
+            <option value="C">Grade C+ (all signals)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA TAB -->
+    <div class="smod-tab-content" id="stab-data">
+      <div class="smod-section">
+        <div class="smod-section-title">Cloudflare Worker</div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-worker">Worker URL</label>
+          <input class="smod-input" id="set-worker" type="url" placeholder="https://nexus-zed.workers.dev">
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="smod-btn smod-btn-secondary" onclick="testWorker()">Test Connection</button>
+        </div>
+        <div id="worker-status" style="font-size:11px;margin-top:6px;color:var(--t3);"></div>
+      </div>
+      <div class="smod-divider"></div>
+      <div class="smod-section">
+        <div class="smod-section-title">Twelve Data API (OHLC Candles)</div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-td-key">API Key</label>
+          <input class="smod-input" id="set-td-key" type="password" placeholder="Your Twelve Data key">
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="smod-btn smod-btn-secondary" onclick="testTwelveData()">Test Key</button>
+          <button class="smod-btn smod-btn-secondary" onclick="fetchOHLCFromTwelveData()">Load Candles</button>
+        </div>
+        <div id="td-status" style="font-size:11px;margin-top:6px;color:var(--t3);"></div>
+      </div>
+      <div class="smod-divider"></div>
+      <div class="smod-section">
+        <div class="smod-section-title">OANDA (Live Order Flow)</div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-oanda-key">API Key</label>
+          <input class="smod-input" id="set-oanda-key" type="password" placeholder="Your OANDA key">
+        </div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-oanda-acct">Account ID</label>
+          <input class="smod-input" id="set-oanda-acct" type="text" placeholder="001-001-XXXXXXX-001">
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="smod-btn smod-btn-secondary" onclick="connectOANDA()">Connect Stream</button>
+        </div>
+        <div id="oanda-status" style="font-size:11px;margin-top:6px;color:var(--t3);"></div>
+      </div>
+    </div>
+
+    <!-- ALERTS TAB -->
+    <div class="smod-tab-content" id="stab-alerts">
+      <div class="smod-section">
+        <div class="smod-section-title">Sound Alerts</div>
+        <div class="smod-row">
+          <label class="smod-label">Signal Alert</label>
+          <label class="smod-toggle"><input type="checkbox" id="set-snd-signal"><span class="smod-toggle-track"></span></label>
+        </div>
+        <div class="smod-row">
+          <label class="smod-label">Zone Approach</label>
+          <label class="smod-toggle"><input type="checkbox" id="set-snd-zone"><span class="smod-toggle-track"></span></label>
+        </div>
+        <div class="smod-row">
+          <label class="smod-label">News Blackout</label>
+          <label class="smod-toggle"><input type="checkbox" id="set-snd-news"><span class="smod-toggle-track"></span></label>
+        </div>
+      </div>
+      <!-- PWA settings injected here by nexus.pwa.js -->
+    </div>
+
+    <!-- ACCOUNT TAB -->
+    <div class="smod-tab-content" id="stab-account">
+      <div class="smod-section">
+        <div id="account-settings-body">
+          <div style="text-align:center;padding:20px;color:var(--t3);font-size:13px;">
+            Sign in to manage your subscription and sync settings across devices.
+          </div>
+        </div>
+      </div>
+      <div class="smod-divider"></div>
+      <div class="smod-section">
+        <div class="smod-section-title">HTF Levels (Edge tier)</div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-htf-supply">HTF Supply</label>
+          <input class="smod-input" id="set-htf-supply" type="number" placeholder="e.g. 3420.00" step="0.01">
+        </div>
+        <div class="smod-row">
+          <label class="smod-label" for="set-htf-demand">HTF Demand</label>
+          <input class="smod-input" id="set-htf-demand" type="number" placeholder="e.g. 3280.00" step="0.01">
+        </div>
+      </div>
+      <div class="smod-divider"></div>
+      <div class="smod-section">
+        <div class="smod-section-title">Data Management</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="smod-btn smod-btn-secondary" onclick="if(confirm('Clear all local data?')){localStorage.clear();location.reload();}">Clear All Local Data</button>
+          <button class="smod-btn smod-btn-secondary" onclick="exportJournal()">Export Journal CSV</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end smod-body -->
+
+  <!-- Footer -->
+  <div class="smod-footer">
+    <button class="smod-btn smod-btn-secondary" onclick="closeSettings()">Cancel</button>
+    <button class="smod-btn smod-btn-primary" onclick="saveSettings()">Save Settings</button>
+  </div>
+</div>
+</div>
+
+<nav id="bottomNav">
+  <button class="bnav-tab active" data-page="dashboard">
+    <div class="bnav-icon">⊞</div>
+    <div class="bnav-lbl">Dashboard</div>
+  </button>
+  <button class="bnav-tab" data-page="macro">
+    <div class="bnav-icon">🌐</div>
+    <div class="bnav-lbl">Macro</div>
+  </button>
+  <button class="bnav-tab" data-page="liquidity">
+    <div class="bnav-icon">💧</div>
+    <div class="bnav-lbl">Liquidity</div>
+  </button>
+  <div class="bnav-center" onclick="goPage('dashboard')">N</div>
+  <button class="bnav-tab" data-page="execution">
+    <div class="bnav-icon">🎯</div>
+    <div class="bnav-lbl">Execution</div>
+  </button>
+  <button class="bnav-tab" data-page="quant">
+    <div class="bnav-icon">📈</div>
+    <div class="bnav-lbl">Quant</div>
+  </button>
+  <button class="bnav-tab" data-page="journal">
+    <div class="bnav-icon">📓</div>
+    <div class="bnav-lbl">More</div>
+  </button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/nexus.state.js"></script>
+<script src="js/nexus.helpers.js"></script>
+<script src="js/nexus.session.js"></script>
+<script src="js/nexus.feeds.js"></script>
+<script src="js/nexus.engines.js"></script>
+<script src="js/nexus.chart.js"></script>
+<script src="js/nexus.render.js"></script>
+<script src="js/nexus.ui.js"></script>
+<script src="js/nexus.oanda.js"></script>
+<script src="js/nexus.swing.js"></script>
+<script src="js/nexus.ml.js"></script>
+<script src="js/nexus.bayes.js"></script>
+<script src="js/nexus.auth.js"></script>
+<script src="js/nexus.pwa.js"></script>
+</body>
+</html>
+<script>
+// ═══════════════════════════════════════════════════════════
+// NEXUS ZED v5.12 — Performance Attribution Engine
+// Win rate by: session · grade · regime · hour · direction
+// Streak tracker · Drawdown analysis · Edge score
+// Post-mortem panel · R-multiple distribution
+// All computed from ML.trades — zero hardcoded values
+// ═══════════════════════════════════════════════════════════
+
+// ── PERFORMANCE ATTRIBUTION CORE ──────────────────────────
+function computeAttribution() {
+  const trades = ML.trades.filter(t => t.outcome && t.outcome !== 'OPEN');
+  if (!trades.length) return null;
+
+  const wins   = trades.filter(t => ['TP1','TP2','WIN'].includes(t.outcome));
+  const losses = trades.filter(t => ['SL','LOSS'].includes(t.outcome));
+  const total  = trades.length;
+  const wr     = total ? Math.round(wins.length / total * 100) : 0;
+
+  // ── By Session ───────────────────────────────────────────
+  const sessions   = ['Tokyo','London','New York','Overlap','Off-hours'];
+  const bySession  = {};
+  sessions.forEach(s => {
+    const st = trades.filter(t => (t.sessName || '').includes(s.split(' ')[0]));
+    const sw = st.filter(t => ['TP1','TP2','WIN'].includes(t.outcome));
+    bySession[s] = { total: st.length, wins: sw.length, wr: st.length ? Math.round(sw.length/st.length*100) : 0 };
+  });
+
+  // ── By Grade ─────────────────────────────────────────────
+  const byGrade = {};
+  ['A','B','C'].forEach(g => {
+    const gt = trades.filter(t => t.grade === g);
+    const gw = gt.filter(t => ['TP1','TP2','WIN'].includes(t.outcome));
+    byGrade[g] = { total: gt.length, wins: gw.length, wr: gt.length ? Math.round(gw.length/gt.length*100) : 0 };
+  });
+
+  // ── By Direction ─────────────────────────────────────────
+  const byDir = {};
+  ['SELL','BUY'].forEach(d => {
+    const dt = trades.filter(t => t.decision === d);
+    const dw = dt.filter(t => ['TP1','TP2','WIN'].includes(t.outcome));
+    byDir[d] = { total: dt.length, wins: dw.length, wr: dt.length ? Math.round(dw.length/dt.length*100) : 0 };
+  });
+
+  // ── By Hour (UTC) ─────────────────────────────────────────
+  const byHour = {};
+  for (let h = 0; h < 24; h++) byHour[h] = { total: 0, wins: 0, wr: 0 };
+  trades.forEach(t => {
+    try {
+      const hr = new Date(t.ts).getUTCHours();
+      if (hr >= 0 && hr < 24) {
+        byHour[hr].total++;
+        if (['TP1','TP2','WIN'].includes(t.outcome)) byHour[hr].wins++;
+      }
+    } catch(e) {}
+  });
+  Object.keys(byHour).forEach(h => {
+    byHour[h].wr = byHour[h].total ? Math.round(byHour[h].wins / byHour[h].total * 100) : 0;
+  });
+
+  // ── Streak analysis ───────────────────────────────────────
+  let curStreak = 0, maxWin = 0, maxLoss = 0, curWin = 0, curLoss = 0;
+  trades.forEach(t => {
+    const w = ['TP1','TP2','WIN'].includes(t.outcome);
+    if (w) { curWin++; curLoss = 0; maxWin = Math.max(maxWin, curWin); }
+    else   { curLoss++; curWin = 0; maxLoss = Math.max(maxLoss, curLoss); }
+    curStreak = w ? curWin : -curLoss;
+  });
+  const lastTrade  = trades[0]; // newest first
+  const curStreakDir = lastTrade ? (['TP1','TP2','WIN'].includes(lastTrade.outcome) ? 'W' : 'L') : '—';
+
+  // ── R-multiple distribution ───────────────────────────────
+  // Approximate R-multiple from outcome
+  const rMultiples = trades.map(t => {
+    if (t.outcome === 'TP2') return 2.0;
+    if (t.outcome === 'TP1') return 1.2;
+    if (t.outcome === 'SL' || t.outcome === 'LOSS') return -1.0;
+    return 0;
+  });
+  const avgR = rMultiples.length ? (rMultiples.reduce((a,b)=>a+b,0) / rMultiples.length).toFixed(2) : '0';
+  const expectancy = (wr/100 * parseFloat(avgR) + (1-wr/100) * (-1)).toFixed(2);
+
+  // ── Drawdown from equity curve ────────────────────────────
+  let peak = 100, maxDD = 0, equity = 100;
+  rMultiples.slice().reverse().forEach(r => {
+    equity += r > 0 ? r * 2 : r; // simplified
+    if (equity > peak) peak = equity;
+    const dd = (peak - equity) / peak * 100;
+    if (dd > maxDD) maxDD = dd;
+  });
+
+  // ── Profit Factor ─────────────────────────────────────────
+  const grossWin  = rMultiples.filter(r=>r>0).reduce((a,b)=>a+b,0);
+  const grossLoss = Math.abs(rMultiples.filter(r=>r<0).reduce((a,b)=>a+b,0));
+  const profitFactor = grossLoss > 0 ? (grossWin/grossLoss).toFixed(2) : '∞';
+
+  // ── Edge score (0-100) ────────────────────────────────────
+  const edgeScore = Math.round(
+    (wr / 100 * 35) +                                    // WR component (max 35)
+    (Math.min(2, parseFloat(avgR)) / 2 * 25) +           // R:R component (max 25)
+    (Math.min(2, parseFloat(profitFactor)) / 2 * 20) +   // PF component (max 20)
+    ((byGrade['A']?.wr || 0) / 100 * 10) +               // Grade A WR (max 10)
+    (parseFloat(expectancy) > 0 ? 10 : 0)                // Positive expectancy (max 10)
+  );
+
+  return {
+    total, wins: wins.length, losses: losses.length, wr,
+    bySession, byGrade, byDir, byHour,
+    curStreak, curStreakDir, maxWin, maxLoss,
+    avgR, expectancy, maxDD: maxDD.toFixed(1),
+    profitFactor, edgeScore,
+    rMultiples,
+  };
+}
+
+// ════════════════════════════════════════════════════════════
+// ATTRIBUTION UI RENDERER
+// Injected into Journal page on first visit
+// ════════════════════════════════════════════════════════════
+function injectAttributionPanel() {
+  if (document.getElementById('attrPanel')) return;
+
+  const journalPage = document.getElementById('page-journal');
+  if (!journalPage) return;
+  const modPage = journalPage.querySelector('.mod-page');
+  if (!modPage) return;
+
+  const panel = document.createElement('div');
+  panel.id = 'attrPanel';
+  panel.innerHTML = `
+    <!-- EDGE SCORE + KEY METRICS -->
+    <div class="card" style="border-color:var(--goldborder);">
+      <div class="card-hdr" style="background:var(--golddim);">
+        <span class="card-title" style="color:var(--gold);">PERFORMANCE ATTRIBUTION</span>
+        <span id="attr-data-note" style="font-size:10px;color:var(--t3);">Loading...</span>
+      </div>
+      <div class="card-body">
+        <!-- Edge Score + key stats row -->
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;margin-bottom:16px;">
+          <!-- Edge Score gauge -->
+          <div style="text-align:center;background:var(--bg2);border-radius:10px;padding:14px;border:1px solid var(--border);">
+            <div style="font-size:10px;color:var(--t3);letter-spacing:.8px;margin-bottom:6px;">EDGE SCORE</div>
+            <div style="font-size:48px;font-weight:900;line-height:1;" id="attr-edge">—</div>
+            <div style="height:4px;background:var(--bg3);border-radius:2px;margin-top:8px;overflow:hidden;">
+              <div id="attr-edge-bar" style="height:100%;border-radius:2px;transition:width .6s;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--t3);margin-top:4px;" id="attr-edge-lbl">—</div>
+          </div>
+          <!-- Key metrics grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:4px;">EXPECTANCY</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--mono);" id="attr-expect">—</div>
+              <div style="font-size:9px;color:var(--t3);">R per trade</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:4px;">PROFIT FACTOR</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--mono);" id="attr-pf">—</div>
+              <div style="font-size:9px;color:var(--t3);">gross W / gross L</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:4px;">MAX DRAWDOWN</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--mono);color:var(--sell);" id="attr-dd">—</div>
+              <div style="font-size:9px;color:var(--t3);">peak-to-trough</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:4px;">CURRENT STREAK</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--mono);" id="attr-streak">—</div>
+              <div style="font-size:9px;color:var(--t3);" id="attr-streak-sub">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:4px;">BEST STREAK</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--mono);color:var(--buy);" id="attr-bestw">—W</div>
+              <div style="font-size:9px;color:var(--t3);">consecutive wins</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:9px;color:var(--t3);margin-bottom:4px;">WORST STREAK</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--mono);color:var(--sell);" id="attr-bestl">—L</div>
+              <div style="font-size:9px;color:var(--t3);">consecutive losses</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attribution breakdown tabs -->
+        <div style="display:flex;border-bottom:1px solid var(--border);margin-bottom:14px;gap:0;">
+          ${['Session','Grade','Direction','By Hour'].map((t,i)=>`
+            <div class="attr-tab ${i===0?'active':''}" data-attr-tab="${t.toLowerCase().replace(' ','-')}"
+              onclick="switchAttrTab(this,'${t.toLowerCase().replace(' ','-')}')"
+              style="padding:8px 14px;font-size:11px;font-weight:600;cursor:pointer;
+                color:${i===0?'var(--gold)':'var(--t3)'};
+                border-bottom:${i===0?'2px solid var(--gold)':'2px solid transparent'};
+                transition:all .15s;white-space:nowrap;">
+              ${t}
+            </div>`).join('')}
+        </div>
+
+        <!-- SESSION TAB -->
+        <div id="attr-tab-session" class="attr-tab-content">
+          <div id="attr-session-bars"></div>
+          <div style="margin-top:8px;font-size:11px;color:var(--t3);" id="attr-session-insight">—</div>
+        </div>
+
+        <!-- GRADE TAB -->
+        <div id="attr-tab-grade" class="attr-tab-content" style="display:none;">
+          <div id="attr-grade-bars"></div>
+          <div style="margin-top:8px;font-size:11px;color:var(--t3);" id="attr-grade-insight">—</div>
+        </div>
+
+        <!-- DIRECTION TAB -->
+        <div id="attr-tab-direction" class="attr-tab-content" style="display:none;">
+          <div id="attr-dir-bars"></div>
+          <div style="margin-top:8px;font-size:11px;color:var(--t3);" id="attr-dir-insight">—</div>
+        </div>
+
+        <!-- BY HOUR TAB -->
+        <div id="attr-tab-by-hour" class="attr-tab-content" style="display:none;">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;letter-spacing:.6px;">WIN RATE BY UTC HOUR — HEATMAP</div>
+          <div id="attr-hour-grid" style="display:grid;grid-template-columns:repeat(24,1fr);gap:2px;"></div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--t3);margin-top:3px;">
+            <span>00:00 UTC</span><span>12:00 UTC</span><span>23:00 UTC</span>
+          </div>
+          <div style="margin-top:10px;" id="attr-hour-bars"></div>
+          <div style="margin-top:8px;font-size:11px;color:var(--t3);" id="attr-hour-insight">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R-MULTIPLE DISTRIBUTION + POST-MORTEM -->
+    <div class="mod-grid-2">
+
+      <!-- R-Multiple Distribution -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">R-MULTIPLE DISTRIBUTION</span></div>
+        <div class="card-body">
+          <div style="display:flex;align-items:flex-end;gap:3px;height:80px;margin-bottom:8px;" id="attr-r-bars"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+            <div style="text-align:center;padding:6px;background:var(--buydim);border-radius:6px;">
+              <div style="font-size:9px;color:var(--buy);margin-bottom:2px;">TP2 HITS</div>
+              <div style="font-size:16px;font-weight:800;color:var(--buy);font-family:var(--mono);" id="attr-tp2-count">—</div>
+            </div>
+            <div style="text-align:center;padding:6px;background:var(--golddim);border-radius:6px;">
+              <div style="font-size:9px;color:var(--gold);margin-bottom:2px;">TP1 HITS</div>
+              <div style="font-size:16px;font-weight:800;color:var(--gold);font-family:var(--mono);" id="attr-tp1-count">—</div>
+            </div>
+            <div style="text-align:center;padding:6px;background:var(--selldim);border-radius:6px;">
+              <div style="font-size:9px;color:var(--sell);margin-bottom:2px;">SL HITS</div>
+              <div style="font-size:16px;font-weight:800;color:var(--sell);font-family:var(--mono);" id="attr-sl-count">—</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--t3);line-height:1.7;" id="attr-r-insight">
+            R-multiple distribution shows your outcome quality.
+          </div>
+        </div>
+      </div>
+
+      <!-- Post-Mortem Panel -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">POST-MORTEM — SELECT TRADE</span></div>
+        <div class="card-body" id="postMortemBody">
+          <div style="color:var(--t3);font-size:12px;line-height:1.8;">
+            Click any row in the trade journal table to open the post-mortem analysis for that trade.
+            <br><br>
+            Post-mortem shows: entry context, market regime at time of entry, what confluence was met, outcome analysis, and lessons.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  // Insert after the trade table (before audit log section)
+  const grid2 = modPage.querySelector('.mod-grid-2');
+  if (grid2) {
+    modPage.insertBefore(panel, grid2);
+  } else {
+    modPage.appendChild(panel);
+  }
+}
+
+// ── Attribution tab switcher ──────────────────────────────
+function switchAttrTab(el, tab) {
+  document.querySelectorAll('.attr-tab').forEach(t => {
+    t.style.color = 'var(--t3)';
+    t.style.borderBottomColor = 'transparent';
+    t.classList.remove('active');
+  });
+  el.style.color = 'var(--gold)';
+  el.style.borderBottomColor = 'var(--gold)';
+  el.classList.add('active');
+
+  document.querySelectorAll('.attr-tab-content').forEach(c => c.style.display = 'none');
+  const target = document.getElementById('attr-tab-' + tab);
+  if (target) target.style.display = '';
+}
+
+// ── Render a single attribution bar row ───────────────────
+function renderAttrBar(container, label, data, color, totalTrades) {
+  if (!container) return;
+  const pct = data.wr;
+  const barW = Math.round(pct);
+  const vol  = totalTrades > 0 ? Math.round(data.total / totalTrades * 100) : 0;
+  const col  = pct >= 60 ? 'var(--buy)' : pct >= 45 ? 'var(--gold)' : pct > 0 ? 'var(--sell)' : 'var(--t3)';
+
+  const row = document.createElement('div');
+  row.style.cssText = 'margin-bottom:10px;';
+  row.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <div style="font-size:11px;font-weight:600;color:var(--t2);">${label}</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:10px;color:var(--t3);">${data.total} trades (${vol}% vol)</span>
+        <span style="font-size:13px;font-weight:700;color:${col};font-family:var(--mono);min-width:36px;text-align:right;">
+          ${data.total > 0 ? pct + '%' : '—'}
+        </span>
+      </div>
+    </div>
+    <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;">
+      <div style="width:${barW}%;height:100%;background:${col};border-radius:3px;transition:width .6s ease;"></div>
+    </div>
+  `;
+  container.appendChild(row);
+}
+
+// ── Render hour heatmap ───────────────────────────────────
+function renderHourGrid(data) {
+  const grid = document.getElementById('attr-hour-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  // Kill zone hours (UTC): London 08-09, NY 13-14
+  const KZ = new Set([8,9,13,14]);
+
+  for (let h = 0; h < 24; h++) {
+    const d = data[h];
+    const pct = d.wr;
+    const hasData = d.total > 0;
+    const col = hasData
+      ? pct >= 60 ? 'rgba(34,197,94,.7)'
+      : pct >= 45 ? 'rgba(245,166,35,.6)'
+      : 'rgba(239,68,68,.5)'
+      : 'rgba(42,42,58,.5)';
+
+    const cell = document.createElement('div');
+    cell.style.cssText = `
+      height:24px;border-radius:3px;background:${col};
+      cursor:default;position:relative;
+      ${KZ.has(h) ? 'outline:1px solid rgba(245,166,35,.4);' : ''}
+    `;
+    cell.title = `${String(h).padStart(2,'0')}:00 UTC — ${hasData ? d.wr + '% WR (' + d.total + ' trades)' : 'No data'}`;
+    grid.appendChild(cell);
+  }
+}
+
+// ── Render R-multiple bars ────────────────────────────────
+function renderRBars(rMultiples) {
+  const container = document.getElementById('attr-r-bars');
+  if (!container || !rMultiples.length) return;
+
+  const buckets = { 'SL(-1R)': 0, 'TP1(+1.2R)': 0, 'TP2(+2R)': 0 };
+  rMultiples.forEach(r => {
+    if (r < 0) buckets['SL(-1R)']++;
+    else if (r <= 1.5) buckets['TP1(+1.2R)']++;
+    else buckets['TP2(+2R)']++;
+  });
+
+  const max = Math.max(...Object.values(buckets), 1);
+  const cols = { 'SL(-1R)': 'var(--sell)', 'TP1(+1.2R)': 'var(--gold)', 'TP2(+2R)': 'var(--buy)' };
+
+  container.innerHTML = Object.entries(buckets).map(([label, count]) => {
+    const h = Math.round(count / max * 80);
+    return `
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+        <div style="font-size:10px;font-weight:700;color:${cols[label]};font-family:var(--mono);">${count}</div>
+        <div style="width:100%;height:${h}px;background:${cols[label]};border-radius:3px 3px 0 0;min-height:3px;transition:height .4s;opacity:.8;"></div>
+        <div style="font-size:8px;color:var(--t3);text-align:center;line-height:1.3;">${label}</div>
+      </div>`;
+  }).join('');
+
+  setText('attr-tp2-count', buckets['TP2(+2R)']);
+  setText('attr-tp1-count', buckets['TP1(+1.2R)']);
+  setText('attr-sl-count',  buckets['SL(-1R)']);
+}
+
+// ── Post-mortem for selected trade ───────────────────────
+function openPostMortem(trade) {
+  const body = document.getElementById('postMortemBody');
+  if (!body) return;
+
+  const isWin  = ['TP1','TP2','WIN'].includes(trade.outcome);
+  const col    = isWin ? 'var(--buy)' : 'var(--sell)';
+  const emoji  = isWin ? '✅' : '❌';
+
+  body.innerHTML = `
+    <div style="padding:10px;background:${isWin?'var(--buydim)':'var(--selldim)'};border-radius:8px;
+      border-left:3px solid ${col};margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:700;color:${col};">
+        ${emoji} ${trade.decision} — ${trade.outcome}
+      </div>
+      <div style="font-size:11px;color:var(--t2);margin-top:2px;">
+        ${trade.ts} · ${trade.sessName || '—'} Session
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
+      <div class="data-row" style="padding:4px 0;border:none;"><div class="data-key">Entry</div><div class="data-val">${trade.entry?.toFixed?.(2)||'—'}</div></div>
+      <div class="data-row" style="padding:4px 0;border:none;"><div class="data-key">Stop Loss</div><div class="data-val" style="color:var(--sell)">${trade.sl?.toFixed?.(2)||'—'}</div></div>
+      <div class="data-row" style="padding:4px 0;border:none;"><div class="data-key">TP1</div><div class="data-val" style="color:var(--buy)">${trade.tp?.toFixed?.(2)||'—'}</div></div>
+      <div class="data-row" style="padding:4px 0;border:none;"><div class="data-key">Grade</div><div class="data-val">${trade.grade||'—'}</div></div>
+      <div class="data-row" style="padding:4px 0;border:none;"><div class="data-key">Confidence</div><div class="data-val">${Math.round((trade.prob||0)*100)}%</div></div>
+      <div class="data-row" style="padding:4px 0;border:none;"><div class="data-key">R-Multiple</div>
+        <div class="data-val" style="color:${isWin?'var(--buy)':'var(--sell)'}">
+          ${trade.outcome==='TP2'?'+2.0R':trade.outcome==='TP1'?'+1.2R':'-1.0R'}
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <div style="font-size:10px;color:var(--t3);letter-spacing:.7px;margin-bottom:4px;">ANALYSIS</div>
+      <div style="font-size:12px;color:var(--t2);line-height:1.7;padding:8px;background:var(--bg2);border-radius:6px;">
+        ${isWin
+          ? `Grade ${trade.grade||'B'} signal in ${trade.sessName||'—'} session with ${Math.round((trade.prob||0)*100)}% ML confidence. ${trade.outcome==='TP2'?'Ran to TP2 — full 2R achieved. Excellent execution.':'Reached TP1 (1.2R). Runner did not continue to TP2.'}`
+          : `Stop loss hit. Grade ${trade.grade||'C'} signal in ${trade.sessName||'—'} session. Review: was the setup forced outside kill zone? Was ADX <25? Consider tightening grade filter to ${trade.grade==='C'?'B+':'A'}.`
+        }
+      </div>
+    </div>
+
+    <div style="font-size:10px;color:var(--t3);letter-spacing:.7px;margin-bottom:4px;">LESSONS</div>
+    <div style="font-size:12px;color:var(--t2);line-height:1.7;padding:8px;background:var(--bg2);border-radius:6px;">
+      ${isWin
+        ? `This trade demonstrates your edge. ${trade.sessName?.includes('York')||trade.sessName?.includes('London')?'Kill zone timing confirmed.':''} Continue taking Grade ${trade.grade||'B'}+ signals in liquid sessions.`
+        : `Loss is part of the game. Check: (1) Was news blackout active? (2) Was cascade score ≥3? (3) Was stop placement ≥ ATR×0.5 beyond zone? Each 1R loss is recoverable in 1 trade if process is followed.`
+      }
+    </div>
+  `;
+}
+
+// ── Wire post-mortem to journal table rows ────────────────
+function wireJournalPostMortem() {
+  const tbody = document.getElementById('jnlBody');
+  if (!tbody) return;
+  tbody.querySelectorAll('tr[data-trade-idx]').forEach((row, i) => {
+    row.style.cursor = 'pointer';
+    row.onclick = () => {
+      // Highlight selected
+      tbody.querySelectorAll('tr').forEach(r => r.style.background = '');
+      row.style.background = 'rgba(245,166,35,.06)';
+      const idx = parseInt(row.getAttribute('data-trade-idx'));
+      const trade = ML.trades[idx];
+      if (trade) openPostMortem(trade);
+    };
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+// MAIN ATTRIBUTION RENDER
+// ════════════════════════════════════════════════════════════
+function renderPerformanceAttribution() {
+  injectAttributionPanel();
+
+  const attr = computeAttribution();
+  if (!attr) {
+    const note = document.getElementById('attr-data-note');
+    if (note) note.textContent = 'No completed trades yet — trade journal populates automatically';
+    return;
+  }
+
+  const note = document.getElementById('attr-data-note');
+  if (note) note.textContent = `${attr.total} trades analysed`;
+
+  // ── Edge Score ───────────────────────────────────────────
+  const edgeEl  = document.getElementById('attr-edge');
+  const edgeBar = document.getElementById('attr-edge-bar');
+  const edgeLbl = document.getElementById('attr-edge-lbl');
+  if (edgeEl) {
+    edgeEl.textContent = attr.edgeScore;
+    const ec = attr.edgeScore >= 70 ? 'var(--buy)' : attr.edgeScore >= 50 ? 'var(--gold)' : 'var(--sell)';
+    edgeEl.style.color = ec;
+    if (edgeBar) { edgeBar.style.width = attr.edgeScore + '%'; edgeBar.style.background = ec; }
+    if (edgeLbl) {
+      edgeLbl.textContent = attr.edgeScore >= 70 ? 'STRONG EDGE' : attr.edgeScore >= 50 ? 'DEVELOPING' : 'NEEDS WORK';
+      edgeLbl.style.color = ec;
+    }
+  }
+
+  // ── Key metrics ──────────────────────────────────────────
+  const expEl = document.getElementById('attr-expect');
+  if (expEl) {
+    expEl.textContent = (parseFloat(attr.expectancy) > 0 ? '+' : '') + attr.expectancy + 'R';
+    expEl.style.color = parseFloat(attr.expectancy) > 0 ? 'var(--buy)' : 'var(--sell)';
+  }
+  const pfEl = document.getElementById('attr-pf');
+  if (pfEl) {
+    pfEl.textContent = attr.profitFactor;
+    pfEl.style.color = parseFloat(attr.profitFactor) >= 1.5 ? 'var(--buy)'
+      : parseFloat(attr.profitFactor) >= 1 ? 'var(--gold)' : 'var(--sell)';
+  }
+  const ddEl = document.getElementById('attr-dd');
+  if (ddEl) ddEl.textContent = attr.maxDD + '%';
+
+  const streakEl = document.getElementById('attr-streak');
+  if (streakEl) {
+    const s = attr.curStreak;
+    streakEl.textContent = s === 0 ? '—' : s > 0 ? '+' + s + 'W' : s + 'L';
+    streakEl.style.color = s > 0 ? 'var(--buy)' : s < 0 ? 'var(--sell)' : 'var(--t3)';
+  }
+  const subEl = document.getElementById('attr-streak-sub');
+  if (subEl) subEl.textContent = attr.curStreak !== 0 ? 'in a row' : 'no streak';
+  setText('attr-bestw', attr.maxWin + 'W');
+  setText('attr-bestl', attr.maxLoss + 'L');
+
+  // ── Session bars ─────────────────────────────────────────
+  const sessContainer = document.getElementById('attr-session-bars');
+  if (sessContainer) {
+    sessContainer.innerHTML = '';
+    Object.entries(attr.bySession)
+      .filter(([,d]) => d.total > 0)
+      .sort((a,b) => b[1].wr - a[1].wr)
+      .forEach(([name, data]) => renderAttrBar(sessContainer, name, data, 'var(--gold)', attr.total));
+
+    const bestSess = Object.entries(attr.bySession)
+      .filter(([,d]) => d.total >= 3)
+      .sort((a,b) => b[1].wr - a[1].wr)[0];
+    const insEl = document.getElementById('attr-session-insight');
+    if (insEl && bestSess) {
+      insEl.textContent = `Best session: ${bestSess[0]} (${bestSess[1].wr}% WR, ${bestSess[1].total} trades). Focus your trading here. Worst session may indicate you're fighting the wrong market hours.`;
+    }
+  }
+
+  // ── Grade bars ───────────────────────────────────────────
+  const gradeContainer = document.getElementById('attr-grade-bars');
+  if (gradeContainer) {
+    gradeContainer.innerHTML = '';
+    const gradeLabels = { A: '⭐ Grade A — Highest conviction', B: '★ Grade B — Standard', C: '◦ Grade C — Low confidence' };
+    ['A','B','C'].forEach(g => {
+      if (attr.byGrade[g]?.total > 0)
+        renderAttrBar(gradeContainer, gradeLabels[g], attr.byGrade[g], 'var(--piv)', attr.total);
+    });
+    const gInsEl = document.getElementById('attr-grade-insight');
+    if (gInsEl) {
+      const aWR = attr.byGrade['A']?.wr || 0;
+      const bWR = attr.byGrade['B']?.wr || 0;
+      const diff = aWR - bWR;
+      gInsEl.textContent = aWR > 0
+        ? `Grade A outperforms Grade B by ${diff > 0 ? '+' + diff : diff}pp. ${aWR >= 60 ? 'Strong A-grade filter — consider restricting to Grade A only during lower-volatility sessions.' : diff > 10 ? 'Significant grade gap confirms ML model is adding value.' : 'Grade gap is small — model may need more training data.'}`
+        : 'Not enough trades per grade for meaningful comparison. Need ≥3 trades per grade.';
+    }
+  }
+
+  // ── Direction bars ───────────────────────────────────────
+  const dirContainer = document.getElementById('attr-dir-bars');
+  if (dirContainer) {
+    dirContainer.innerHTML = '';
+    const dirLabels = { SELL: '▼ SELL — Short signals', BUY: '▲ BUY — Long signals' };
+    ['SELL','BUY'].forEach(d => {
+      if (attr.byDir[d]?.total > 0)
+        renderAttrBar(dirContainer, dirLabels[d], attr.byDir[d], d === 'SELL' ? 'var(--sell)' : 'var(--buy)', attr.total);
+    });
+    const dInsEl = document.getElementById('attr-dir-insight');
+    if (dInsEl) {
+      const sWR = attr.byDir['SELL']?.wr || 0;
+      const bWR = attr.byDir['BUY']?.wr  || 0;
+      const better = sWR > bWR ? 'SELL' : bWR > sWR ? 'BUY' : 'both';
+      dInsEl.textContent = sWR > 0 || bWR > 0
+        ? `${better === 'both' ? 'Equal performance' : better + ' trades outperform'} (SELL: ${sWR}% · BUY: ${bWR}%). ${Math.abs(sWR - bWR) > 15 ? 'Strong directional bias detected — weight position sizing accordingly.' : 'No significant directional bias.'}`
+        : 'No directional data yet.';
+    }
+  }
+
+  // ── Hour heatmap + best hours ────────────────────────────
+  renderHourGrid(attr.byHour);
+  const hourContainer = document.getElementById('attr-hour-bars');
+  if (hourContainer) {
+    hourContainer.innerHTML = '';
+    const activeHours = Object.entries(attr.byHour)
+      .filter(([,d]) => d.total >= 2)
+      .sort((a,b) => b[1].wr - a[1].wr)
+      .slice(0, 5);
+    activeHours.forEach(([h, data]) => {
+      const label = String(h).padStart(2,'0') + ':00 UTC';
+      renderAttrBar(hourContainer, label, data, 'var(--cyan)', attr.total);
+    });
+    const hInsEl = document.getElementById('attr-hour-insight');
+    if (hInsEl) {
+      if (activeHours.length) {
+        const bestH = activeHours[0];
+        const label = String(bestH[0]).padStart(2,'0') + ':00 UTC';
+        hInsEl.textContent = `Highest win rate: ${label} (${bestH[1].wr}%, ${bestH[1].total} trades). Yellow borders = Kill Zones (08-09 London, 13-14 NY). Trade inside Kill Zones with structure for highest probability.`;
+      } else {
+        hInsEl.textContent = 'Need ≥2 trades per hour for meaningful data. Trade more to unlock hourly analytics.';
+      }
+    }
+  }
+
+  // ── R-multiple distribution ──────────────────────────────
+  renderRBars(attr.rMultiples);
+  const rInsEl = document.getElementById('attr-r-insight');
+  if (rInsEl) {
+    const tp2pct = attr.rMultiples.length ? Math.round(attr.rMultiples.filter(r=>r>=2).length/attr.rMultiples.length*100) : 0;
+    const slpct  = attr.rMultiples.length ? Math.round(attr.rMultiples.filter(r=>r<0).length/attr.rMultiples.length*100) : 0;
+    rInsEl.textContent = `TP2 rate: ${tp2pct}% · SL rate: ${slpct}% · Avg R: ${attr.avgR}R. ${parseFloat(attr.expectancy) > 0.2 ? 'Positive expectancy confirms a real edge — protect it by staying disciplined on entries.' : parseFloat(attr.expectancy) > 0 ? 'Marginal positive expectancy. Improve by being more selective (Grade A+ only).' : 'Negative expectancy — review entry criteria. Are you taking C-grade setups? Trading during news?'}`;
+  }
+
+  // Wire post-mortem clicks
+  wireJournalPostMortem();
+}
+
+// ── Override renderJournalPage to include attribution ─────
+const _origRenderJournalPage = window.renderJournalPage;
+window.renderJournalPage = function() {
+  _origRenderJournalPage();
+
+  // Add data-trade-idx to journal rows for post-mortem clicking
+  const tbody = document.getElementById('jnlBody');
+  if (tbody) {
+    tbody.querySelectorAll('tr').forEach((row, i) => {
+      if (ML.trades[i]) row.setAttribute('data-trade-idx', i);
+    });
+  }
+
+  renderPerformanceAttribution();
+};
+
+// ── Auto-render when journal page opened ─────────────────
+const _origGoPagePA = window.goPage;
+window.goPage = function(name) {
+  _origGoPagePA(name);
+  if (name === 'journal') {
+    setTimeout(renderPerformanceAttribution, 50);
+  }
+};
+
+// ── Refresh attribution after trade close ─────────────────
+const _origUpdateSlices = window.updateSlices || function(){};
+window.updateSlices = function() {
+  _origUpdateSlices();
+  // If journal page is active, refresh attribution
+  if (document.getElementById('page-journal')?.classList.contains('active')) {
+    setTimeout(renderPerformanceAttribution, 100);
+  }
+};
+
+addAuditEntry('SYS', 'Performance Attribution Engine v5.12 active');
+</script>

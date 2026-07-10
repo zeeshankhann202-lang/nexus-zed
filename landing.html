@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Institutional Gold Trading Intelligence</title>
+<meta name="description" content="NEXUS ZED delivers institutional-grade XAU/USD analysis — Smart Money Concepts, Random Forest ML, Bayesian signal fusion, and live OHLC candle engine. Built for serious gold traders.">
+<meta property="og:title" content="NEXUS — Institutional Gold Trading Intelligence">
+<meta property="og:description" content="SMC structure engine · Random Forest ML · Bayesian fusion · Real-time order flow. The analytical depth of a $50,000/yr institutional platform at $49/mo.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   NEXUS ZED — Landing Page
+   Pure black · Gold accent · Institutional feel
+   Mobile-first · No frameworks
+═══════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg0:#060609;--bg1:#0d0d14;--bg2:#12121a;--bg3:#191922;--bg4:#202030;
+  --gold:#f5a623;--gold2:#ffc547;--golddim:rgba(245,166,35,.12);--goldborder:rgba(245,166,35,.25);
+  --sell:#ef4444;--selldim:rgba(239,68,68,.1);
+  --buy:#22c55e;--buydim:rgba(34,197,94,.08);--buyborder:rgba(34,197,94,.25);
+  --blue:#3b82f6;--piv:#a855f7;--cyan:#06b6d4;
+  --border:#1e1e2e;--border2:#282838;
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#475569;
+  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  --max:1200px;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg0);color:var(--t1);font-family:var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+
+/* ── UTILS ── */
+.container{max-width:var(--max);margin:0 auto;padding:0 24px;}
+.flex{display:flex;} .grid{display:grid;}
+.gold{color:var(--gold);}
+.t2{color:var(--t2);}
+.mono{font-family:var(--mono);}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.6px;}
+.tag-gold{background:var(--golddim);color:var(--gold);border:1px solid var(--goldborder);}
+.tag-buy{background:var(--buydim);color:var(--buy);border:1px solid var(--buyborder);}
+.tag-blue{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2);}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 24px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,6,9,.85);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  transition:background .3s;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-n{width:34px;height:34px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#000;flex-shrink:0;}
+.nav-brand{font-size:16px;font-weight:700;color:var(--t1);}
+.nav-sub{font-size:9px;color:var(--t3);letter-spacing:1px;font-family:var(--mono);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-link{font-size:13px;color:var(--t2);font-weight:500;transition:color .15s;cursor:pointer;}
+.nav-link:hover{color:var(--t1);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font);font-weight:600;border:none;cursor:pointer;transition:all .2s;border-radius:8px;white-space:nowrap;}
+.btn-gold{background:var(--gold);color:#000;padding:10px 20px;font-size:13px;}
+.btn-gold:hover{background:var(--gold2);}
+.btn-outline{background:transparent;color:var(--t1);padding:10px 20px;font-size:13px;border:1px solid var(--border2);}
+.btn-outline:hover{border-color:var(--border2);background:var(--bg2);}
+.btn-large{padding:14px 28px;font-size:15px;border-radius:10px;}
+.btn-xl{padding:16px 36px;font-size:16px;border-radius:12px;}
+@media(max-width:768px){.nav-links{display:none;}}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:80px 0 60px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% -10%, rgba(245,166,35,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 50%, rgba(59,130,246,.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 20% 80%, rgba(168,85,247,.03) 0%, transparent 60%);
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;position:relative;z-index:1;
+}
+.hero-kicker{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--buy);box-shadow:0 0 8px var(--buy);}
+.hero-kicker-txt{font-size:12px;font-weight:600;color:var(--buy);letter-spacing:.8px;}
+.hero-h1{font-size:clamp(36px,5vw,60px);font-weight:900;line-height:1.08;letter-spacing:-2px;margin-bottom:20px;}
+.hero-h1 .accent{color:var(--gold);}
+.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--t2);line-height:1.7;margin-bottom:32px;max-width:520px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-social-proof{display:flex;align-items:center;gap:16px;}
+.hsp-avatars{display:flex;}
+.hsp-av{width:28px;height:28px;border-radius:50%;border:2px solid var(--bg0);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.hsp-text{font-size:12px;color:var(--t3);}
+.hsp-text strong{color:var(--t2);}
+
+/* Dashboard preview */
+.hero-visual{position:relative;}
+.dash-preview{
+  background:var(--bg1);border:1px solid var(--border2);border-radius:16px;
+  overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);
+  position:relative;
+}
+.dp-topbar{
+  height:40px;background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 14px;gap:10px;
+}
+.dp-dot{width:10px;height:10px;border-radius:50%;}
+.dp-url{flex:1;background:var(--bg3);border-radius:5px;height:22px;margin:0 10px;display:flex;align-items:center;padding:0 10px;}
+.dp-url-text{font-size:10px;color:var(--t3);font-family:var(--mono);}
+.dp-body{padding:10px;display:grid;grid-template-columns:160px 1fr 160px;gap:8px;min-height:320px;}
+.dp-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;overflow:hidden;}
+/* Signal card */
+.dp-sig-dir{font-size:28px;font-weight:900;color:var(--sell);margin:4px 0;}
+.dp-sig-conf{font-size:18px;font-weight:700;color:var(--sell);}
+.dp-sig-lbl{font-size:8px;color:var(--t3);letter-spacing:.6px;margin-bottom:6px;}
+.dp-conf-bar{height:3px;background:var(--bg3);border-radius:2px;margin-bottom:10px;}
+.dp-conf-fill{height:100%;background:var(--sell);border-radius:2px;}
+.dp-check{display:flex;align-items:center;gap:5px;margin:3px 0;}
+.dp-check-ico{width:12px;height:12px;border-radius:3px;background:var(--buydim);display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--buy);flex-shrink:0;}
+.dp-check-txt{font-size:8px;color:var(--t2);}
+/* Chart card */
+.dp-chart-hdr{display:flex;gap:4px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.dp-tf{font-size:8px;padding:2px 5px;border-radius:3px;color:var(--t3);}
+.dp-tf.active{background:var(--golddim);color:var(--gold);}
+.dp-canvas{background:var(--bg0);border-radius:4px;height:180px;position:relative;margin:6px 0;overflow:hidden;}
+.dp-candle{position:absolute;bottom:0;width:6px;border-radius:1px;}
+.dp-zone-sell{position:absolute;left:0;right:0;border-top:1px dashed rgba(239,68,68,.6);background:rgba(239,68,68,.08);}
+.dp-zone-buy{position:absolute;left:0;right:0;border-top:1px dashed rgba(34,197,94,.5);background:rgba(34,197,94,.06);}
+.dp-zone-lbl{position:absolute;right:4px;font-size:7px;font-weight:700;font-family:var(--mono);}
+.dp-price-line{position:absolute;left:0;right:0;border-top:1px dashed rgba(245,166,35,.7);}
+.dp-price-badge{position:absolute;right:0;background:var(--gold);color:#000;font-size:7px;font-weight:700;padding:1px 4px;border-radius:2px;font-family:var(--mono);}
+.dp-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:4px;}
+.dp-stat{background:var(--bg0);border-radius:4px;padding:5px 6px;}
+.dp-stat-lbl{font-size:7px;color:var(--t3);margin-bottom:2px;}
+.dp-stat-val{font-size:9px;font-weight:700;}
+/* Trade card */
+.dp-trade-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.dp-trade-key{font-size:8px;color:var(--t3);}
+.dp-trade-val{font-size:9px;font-weight:700;font-family:var(--mono);}
+/* Glow on hero card */
+.glow-sell{box-shadow:0 0 40px rgba(239,68,68,.12),inset 0 0 40px rgba(239,68,68,.03);}
+
+/* Floating badges */
+.badge-float{
+  position:absolute;background:var(--bg1);border:1px solid var(--border2);
+  border-radius:8px;padding:8px 12px;box-shadow:0 8px 24px rgba(0,0,0,.4);
+  display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;
+}
+.badge-float.b1{top:-16px;right:-20px;}
+.badge-float.b2{bottom:30px;left:-24px;}
+
+@media(max-width:1024px){.hero-grid{grid-template-columns:1fr;} .hero-visual{display:none;}}
+
+/* ── METRICS STRIP ── */
+#metrics{padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;}
+.met-val{font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-1px;color:var(--t1);}
+.met-val .unit{font-size:.5em;color:var(--t3);font-weight:600;}
+.met-lbl{font-size:12px;color:var(--t3);margin-top:4px;letter-spacing:.3px;}
+@media(max-width:640px){.metrics-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ── FEATURES ── */
+#features{padding:100px 0;}
+.section-kicker{text-align:center;margin-bottom:16px;}
+.section-h{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-1px;text-align:center;margin-bottom:14px;}
+.section-sub{font-size:16px;color:var(--t2);text-align:center;max-width:560px;margin:0 auto 64px;line-height:1.7;}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.feat-card{
+  background:var(--bg1);border:1px solid var(--border);border-radius:14px;
+  padding:28px;transition:border-color .2s,transform .2s;
+}
+.feat-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.feat-icon{font-size:28px;margin-bottom:16px;}
+.feat-h{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--t1);}
+.feat-p{font-size:13px;color:var(--t3);line-height:1.7;}
+.feat-badge{display:inline-block;margin-top:10px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;background:var(--golddim);color:var(--gold);}
+@media(max-width:900px){.feat-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:580px){.feat-grid{grid-template-columns:1fr;}}
+
+/* ── HOW IT WORKS ── */
+#how{padding:80px 0;background:var(--bg1);}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.how-step{background:var(--bg1);padding:28px 24px;}
+.how-num{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.8px;margin-bottom:12px;font-family:var(--mono);}
+.how-h{font-size:15px;font-weight:700;margin-bottom:8px;}
+.how-p{font-size:12px;color:var(--t3);line-height:1.7;}
+@media(max-width:768px){.how-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.how-grid{grid-template-columns:1fr;}}
+
+/* ── PRICING ── */
+#pricing{padding:100px 0;}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;}
+.price-card{
+  background:var(--bg1);border:1px solid var(--border);
+  border-radius:16px;padding:32px;position:relative;
+}
+.price-card.featured{
+  border-color:var(--goldborder);
+  background:linear-gradient(135deg,var(--bg1) 0%,rgba(245,166,35,.04) 100%);
+}
+.price-card.featured::before{
+  content:'MOST POPULAR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:#000;font-size:9px;font-weight:800;letter-spacing:.8px;
+  padding:4px 12px;border-radius:0 0 8px 8px;
+}
+.price-tier{font-size:11px;font-weight:700;letter-spacing:.8px;margin-bottom:8px;}
+.price-name{font-size:22px;font-weight:800;margin-bottom:4px;}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin:16px 0;}
+.price-num{font-size:42px;font-weight:900;letter-spacing:-2px;}
+.price-per{font-size:13px;color:var(--t3);}
+.price-desc{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px;min-height:56px;}
+.price-btn{width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:700;font-family:var(--font);border:none;cursor:pointer;transition:all .2s;margin-bottom:24px;}
+.price-btn-gold{background:var(--gold);color:#000;}
+.price-btn-gold:hover{background:var(--gold2);}
+.price-btn-buy{background:var(--buy);color:#000;}
+.price-btn-buy:hover{filter:brightness(1.1);}
+.price-btn-outline{background:transparent;color:var(--t2);border:1px solid var(--border2);}
+.price-btn-outline:hover{border-color:var(--border2);background:var(--bg2);color:var(--t1);}
+.price-divider{height:1px;background:var(--border);margin-bottom:20px;}
+.price-feature{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:13px;}
+.pf-ico{font-size:12px;flex-shrink:0;margin-top:2px;}
+.pf-ico.ok{color:var(--buy);}
+.pf-ico.no{color:var(--border2);}
+.pf-txt{color:var(--t2);}
+.pf-txt.dim{color:var(--t3);}
+@media(max-width:768px){.price-grid{grid-template-columns:1fr;max-width:400px;}}
+
+/* ── COMPARISON ── */
+#compare{padding:80px 0;background:var(--bg1);}
+.compare-table{width:100%;border-collapse:collapse;max-width:800px;margin:0 auto;}
+.compare-table th{padding:14px 16px;text-align:left;font-size:11px;color:var(--t3);letter-spacing:.8px;border-bottom:1px solid var(--border);font-weight:600;}
+.compare-table td{padding:12px 16px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.03);}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table td:first-child{color:var(--t2);font-weight:500;}
+.compare-table td:not(:first-child){text-align:center;font-weight:600;}
+.cmp-yes{color:var(--buy);}
+.cmp-no{color:var(--t3);}
+.cmp-highlight{background:rgba(245,166,35,.04);}
+
+/* ── FREE CAPTURE ── */
+#capture{padding:80px 0;}
+.capture-box{
+  max-width:560px;margin:0 auto;text-align:center;
+  background:var(--bg1);border:1px solid var(--border2);border-radius:20px;
+  padding:48px 40px;
+  background:linear-gradient(135deg,var(--bg1) 0%, rgba(245,166,35,.03) 100%);
+}
+.capture-h{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:10px;}
+.capture-sub{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:28px;}
+.capture-form{display:flex;gap:8px;margin-bottom:12px;}
+.capture-input{
+  flex:1;padding:12px 16px;background:var(--bg2);border:1px solid var(--border2);
+  border-radius:8px;color:var(--t1);font-family:var(--font);font-size:14px;outline:none;
+  transition:border-color .2s;
+}
+.capture-input:focus{border-color:var(--goldborder);}
+.capture-input::placeholder{color:var(--t3);}
+.capture-fine{font-size:11px;color:var(--t3);}
+@media(max-width:480px){.capture-form{flex-direction:column;}}
+
+/* ── FAQ ── */
+#faq{padding:80px 0;}
+.faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:4px;}
+.faq-item{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg1);}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 20px;cursor:pointer;font-size:14px;font-weight:600;color:var(--t1);
+  user-select:none;
+}
+.faq-q:hover{background:var(--bg2);}
+.faq-arrow{color:var(--t3);font-size:18px;transition:transform .2s;flex-shrink:0;}
+.faq-a{display:none;padding:0 20px 18px;font-size:13px;color:var(--t2);line-height:1.8;}
+.faq-item.open .faq-arrow{transform:rotate(45deg);color:var(--gold);}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-q{color:var(--gold);}
+
+/* ── CTA FINAL ── */
+#cta-final{padding:100px 0;text-align:center;position:relative;overflow:hidden;}
+.cta-final-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,166,35,.06) 0%, transparent 70%);
+}
+.cta-final-h{font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-2px;margin-bottom:14px;position:relative;}
+.cta-final-sub{font-size:16px;color:var(--t2);max-width:480px;margin:0 auto 36px;line-height:1.7;position:relative;}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
+.cta-note{font-size:12px;color:var(--t3);margin-top:16px;position:relative;}
+
+/* ── FOOTER ── */
+#footer{padding:48px 0 32px;border-top:1px solid var(--border);}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-brand{font-size:15px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.footer-desc{font-size:12px;color:var(--t3);line-height:1.7;max-width:240px;}
+.footer-col-h{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;margin-bottom:12px;}
+.footer-link{font-size:12px;color:var(--t3);display:block;padding:3px 0;transition:color .15s;cursor:pointer;}
+.footer-link:hover{color:var(--t2);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;}
+.footer-legal{font-size:11px;color:var(--t3);line-height:1.8;max-width:700px;}
+.footer-copy{font-size:11px;color:var(--t3);}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;} .footer-bottom{flex-direction:column;gap:12px;text-align:center;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.animate-fadeup{opacity:0;animation:fadeUp .6s ease forwards;}
+.animate-fadeup.d1{animation-delay:.1s;} .animate-fadeup.d2{animation-delay:.2s;} .animate-fadeup.d3{animation-delay:.3s;}
+.hero-visual{animation:float 6s ease-in-out infinite;}
+.live-dot{animation:pulse 1.5s ease-in-out infinite;}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999;
+  padding:10px 20px;background:var(--bg1);border:1px solid var(--buyborder);border-radius:8px;
+  color:var(--buy);font-size:13px;font-weight:600;display:none;box-shadow:0 8px 24px rgba(0,0,0,.4);}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="nav-n">N</div>
+    <div>
+      <div class="nav-brand">NEXUS</div>
+      <div class="nav-sub">ZED TRADING SYSTEMS</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#how">How It Works</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="#faq">FAQ</a>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="btn btn-outline" onclick="goToDashboard()">Sign In</button>
+    <button class="btn btn-gold" onclick="startFree()">Start Free</button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- LEFT: Copy -->
+      <div>
+        <div class="hero-kicker">
+          <div class="hero-kicker-dot live-dot"></div>
+          <div class="hero-kicker-txt">XAU/USD · LIVE INTELLIGENCE</div>
+        </div>
+        <h1 class="hero-h1 animate-fadeup">
+          Institutional<br>Gold Trading<br><span class="accent">Intelligence</span>
+        </h1>
+        <p class="hero-sub animate-fadeup d1">
+          NEXUS delivers the analytical depth of a $50,000/yr institutional platform
+          at $49/month — Smart Money Concepts, Random Forest ML, Bayesian signal fusion,
+          and a production OHLC chart engine with auto-computed zones.
+        </p>
+        <div class="hero-actions animate-fadeup d2">
+          <button class="btn btn-gold btn-large" onclick="startFree()">
+            Start Free — No Card Required
+          </button>
+          <button class="btn btn-outline btn-large" onclick="goToDashboard()">
+            Live Demo →
+          </button>
+        </div>
+        <div class="hero-social-proof animate-fadeup d3">
+          <div class="hsp-avatars">
+            <div class="hsp-av" style="background:#1e3a5f;color:#60a5fa;">T</div>
+            <div class="hsp-av" style="background:#1a3a1a;color:#4ade80;">S</div>
+            <div class="hsp-av" style="background:#3a1a1a;color:#f87171;">M</div>
+            <div class="hsp-av" style="background:#3a2a1a;color:#fbbf24;">A</div>
+          </div>
+          <div class="hsp-text"><strong>Traders worldwide</strong> using NEXUS daily</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Dashboard preview -->
+      <div class="hero-visual" style="position:relative;">
+        <div class="dash-preview glow-sell">
+          <!-- Browser chrome -->
+          <div class="dp-topbar">
+            <div class="dp-dot" style="background:#ef4444;"></div>
+            <div class="dp-dot" style="background:#f59e0b;"></div>
+            <div class="dp-dot" style="background:#22c55e;"></div>
+            <div class="dp-url">
+              <span class="dp-url-text">nexuszed.com/dashboard</span>
+            </div>
+          </div>
+          <!-- Price bar -->
+          <div style="background:#0d0d14;border-bottom:1px solid #1e1e2e;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#f5a623;box-shadow:0 0 6px #f5a623;" class="live-dot"></div>
+            <span style="font-size:11px;color:#94a3b8;">XAU/USD</span>
+            <span style="font-size:16px;font-weight:700;color:#f1f5f9;font-family:'JetBrains Mono',monospace;" id="previewPrice">3,382.45</span>
+            <span style="font-size:10px;color:#ef4444;font-family:'JetBrains Mono',monospace;">−8.20</span>
+            <div style="margin-left:auto;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:4px;padding:2px 7px;font-size:9px;font-weight:700;color:#ef4444;">SELL 91%</div>
+          </div>
+          <!-- 3-col layout preview -->
+          <div class="dp-body">
+            <!-- Signal card -->
+            <div class="dp-card">
+              <div style="font-size:8px;color:#475569;letter-spacing:.6px;margin-bottom:6px;">NEXUS SIGNAL</div>
+              <div class="dp-sig-dir">SELL</div>
+              <div class="dp-sig-conf">91%</div>
+              <div class="dp-sig-lbl">CONFIDENCE</div>
+              <div class="dp-conf-bar"><div class="dp-conf-fill" style="width:91%;"></div></div>
+              <div style="font-size:8px;color:#475569;margin-bottom:6px;letter-spacing:.5px;">REASON CONFLUENCE</div>
+              <div class="dp-check"><div class="dp-check-ico">✓</div><div class="dp-check-txt">ZED Macro</div></div>
+              <div class="dp-check"><div class="dp-check-ico">✓</div><div class="dp-check-txt">ZED Liquidity</div></div>
+              <div class="dp-check"><div class="dp-check-ico">✓</div><div class="dp-check-txt">ZED Structure</div></div>
+              <div class="dp-check"><div class="dp-check-ico">✓</div><div class="dp-check-txt">Session Timing</div></div>
+              <div class="dp-check"><div class="dp-check-ico">✓</div><div class="dp-check-txt">ZED AI</div></div>
+            </div>
+            <!-- Chart -->
+            <div class="dp-card" style="padding:8px;">
+              <div class="dp-chart-hdr">
+                <span class="dp-tf">1m</span><span class="dp-tf">5m</span>
+                <span class="dp-tf active">15m</span>
+                <span class="dp-tf">1H</span><span class="dp-tf">4H</span>
+              </div>
+              <div class="dp-canvas" id="previewCanvas">
+                <!-- Supply zone -->
+                <div class="dp-zone-sell" style="top:15%;height:12%;"><span class="dp-zone-lbl" style="top:2px;color:#ef4444;">4H SUPPLY</span></div>
+                <!-- FVG zone -->
+                <div class="dp-zone-sell" style="top:52%;height:6%;opacity:.5;"><span class="dp-zone-lbl" style="top:2px;color:#f59e0b;">FVG</span></div>
+                <!-- Demand zone -->
+                <div class="dp-zone-buy" style="top:78%;height:14%;"><span class="dp-zone-lbl" style="top:2px;color:#22c55e;">4H DEMAND</span></div>
+                <!-- Price line -->
+                <div class="dp-price-line" style="top:44%;">
+                  <div class="dp-price-badge" style="top:-8px;">3,382.45</div>
+                </div>
+                <!-- Animated candles -->
+                <div id="previewCandles" style="position:absolute;bottom:30%;left:0;right:50px;display:flex;align-items:flex-end;gap:3px;padding:0 6px;height:60%;"></div>
+              </div>
+              <div class="dp-stat-row">
+                <div class="dp-stat"><div class="dp-stat-lbl">TREND</div><div class="dp-stat-val" style="color:#ef4444;">BEAR</div></div>
+                <div class="dp-stat"><div class="dp-stat-lbl">VOL</div><div class="dp-stat-val" style="color:#f59e0b;">MED</div></div>
+                <div class="dp-stat"><div class="dp-stat-lbl">LIQ</div><div class="dp-stat-val" style="color:#22c55e;">HIGH</div></div>
+                <div class="dp-stat"><div class="dp-stat-lbl">AI</div><div class="dp-stat-val" style="color:#a855f7;">91%</div></div>
+              </div>
+            </div>
+            <!-- Trade setup -->
+            <div class="dp-card">
+              <div style="font-size:8px;color:#475569;letter-spacing:.6px;margin-bottom:8px;">TRADE SETUP</div>
+              <div class="dp-trade-row"><div class="dp-trade-key">ENTRY</div><div class="dp-trade-val">3,380.70</div></div>
+              <div class="dp-trade-row"><div class="dp-trade-key">STOP LOSS</div><div class="dp-trade-val" style="color:#ef4444;">3,387.60</div></div>
+              <div class="dp-trade-row"><div class="dp-trade-key">TARGET 1</div><div class="dp-trade-val" style="color:#22c55e;">3,372.00</div></div>
+              <div class="dp-trade-row"><div class="dp-trade-key">TARGET 2</div><div class="dp-trade-val" style="color:#22c55e;">3,361.20</div></div>
+              <div class="dp-trade-row"><div class="dp-trade-key">TARGET 3</div><div class="dp-trade-val" style="color:#22c55e;">3,348.50</div></div>
+              <div style="margin-top:10px;border-top:1px solid #1e1e2e;padding-top:8px;">
+                <div style="font-size:8px;color:#475569;letter-spacing:.6px;margin-bottom:6px;">RISK MANAGEMENT</div>
+                <div class="dp-trade-row"><div class="dp-trade-key">RISK</div><div class="dp-trade-val" style="color:#f5a623;">0.50%</div></div>
+                <div class="dp-trade-row"><div class="dp-trade-key">LOT SIZE</div><div class="dp-trade-val" style="color:#f5a623;">0.40</div></div>
+                <div class="dp-trade-row" style="border:none;"><div class="dp-trade-key">MAX LOSS</div><div class="dp-trade-val" style="color:#ef4444;">$125</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Floating badges -->
+        <div class="badge-float b1" style="animation:float 4s ease-in-out infinite;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;" class="live-dot"></div>
+          <div><div style="font-size:10px;font-weight:700;color:#f1f5f9;">ML Grade A</div><div style="font-size:9px;color:#475569;">RF · 91% confidence</div></div>
+        </div>
+        <div class="badge-float b2" style="animation:float 5s ease-in-out infinite 1s;">
+          <span style="font-size:14px;">⚡</span>
+          <div><div style="font-size:10px;font-weight:700;color:#f5a623;">Liquidity Sweep</div><div style="font-size:9px;color:#475569;">BSL confirmed · Q:7/10</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ METRICS ═══════════════ -->
+<section id="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div style="text-align:center;">
+        <div class="met-val gold">10<span class="unit">+</span></div>
+        <div class="met-lbl">Analytical Engines</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="met-val">500<span class="unit" style="font-size:.4em;color:var(--piv);">paths</span></div>
+        <div class="met-lbl">Monte Carlo Simulation</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="met-val">6<span class="unit" style="color:var(--cyan)">×</span></div>
+        <div class="met-lbl">Bayesian Strategy Blend</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="met-val">5<span class="unit" style="color:var(--t3)">s</span></div>
+        <div class="met-lbl">Live Price Refresh</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FEATURES ═══════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="section-kicker"><span class="tag tag-gold">WHAT'S INSIDE</span></div>
+    <h2 class="section-h">Every engine a professional trader needs</h2>
+    <p class="section-sub">Built from the ground up for XAU/USD. No generic indicators. No fake signals. Every output is computed from live OHLC data.</p>
+    <div class="feat-grid">
+
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <div class="feat-h">SMC Structure Engine</div>
+        <div class="feat-p">Real BOS, CHoCH, FVG, OB, CISD, MSS, Inducement, and Breaker Block detection from live OHLC — not price approximations. Zero hardcoded levels. Every zone auto-computed from current market structure.</div>
+        <span class="feat-badge">6 TIMEFRAMES</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">🌐</div>
+        <div class="feat-h">5-Layer Macro Hierarchy</div>
+        <div class="feat-p">Inflation regime, rate cycle, real yield (10Y−CPI), DXY correlation, and VIX fear analysis cascade into a single macro verdict. Live FRED data, CFTC COT positioning, and gold seasonality integrated.</div>
+        <span class="feat-badge">LIVE FRED + COT</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-h">Random Forest ML</div>
+        <div class="feat-p">10-tree Random Forest with out-of-bag accuracy estimation. Online retraining on every trade close. Walk-forward backtesting with zero random outcomes. Platt scaling calibration for honest probability estimates.</div>
+        <span class="feat-badge">REAL RF · NOT LOGISTIC</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">⚖️</div>
+        <div class="feat-h">Bayesian Fusion Engine</div>
+        <div class="feat-p">6 strategy streams combined via log-odds — Structure, Quant, AMT, Microstructure, Execution, and ML Forest. Self-calibrating Beta posterior weights. Collapses to neutral during news blackout windows.</div>
+        <span class="feat-badge">LOG-ODDS COMBINER</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-h">Swing Engine</div>
+        <div class="feat-p">8-state execution machine (IDLE→PRIMED→ARMED→ACTIVE→EXHAUSTING→FLIPPING→RANGE→STANDBY). Slice lifecycle with 1R hedge, runner management, and pyramid entries for Grade A signals. 4-TF cascade health tracker.</div>
+        <span class="feat-badge">STATE MACHINE</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">📈</div>
+        <div class="feat-h">Production OHLC Chart</div>
+        <div class="feat-p">Canvas-based candlestick renderer with pan, scroll zoom, and pinch-to-zoom on mobile. Auto-drawn supply/demand zones, FVGs, OBs, PDH/PDL, equal highs/lows, sweep markers, EMA 20/50, and fair value regression line.</div>
+        <span class="feat-badge">ZERO TRADINGVIEW DEPENDENCY</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">🎲</div>
+        <div class="feat-h">Monte Carlo Simulation</div>
+        <div class="feat-p">500-path GBM simulation with Box-Muller normal distribution. P10/P50/P90 percentile outcomes, upside probability, and range bands. Genuine Geometric Brownian Motion — not linear extrapolation.</div>
+        <span class="feat-badge">500 PATHS · GBM</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">📰</div>
+        <div class="feat-h">News Blackout Engine</div>
+        <div class="feat-p">Real-time Forex Factory calendar integration. Auto-freezes all signals 15 minutes before and 30 minutes after High-impact events. Live countdown timer. Propagates to brain signal, swing engine, and entry gates simultaneously.</div>
+        <span class="feat-badge">REAL-TIME GATES</span>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon">🔴</div>
+        <div class="feat-h">OANDA Order Flow</div>
+        <div class="feat-p">Real bid/ask stream via OANDA Server-Sent Events. True cumulative delta from price aggressor detection. Live tape, spread display, tick rate, and bid/ask imbalance bar. Exponential backoff reconnection with 10-attempt retry.</div>
+        <span class="feat-badge">EDGE TIER · REAL DOM</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="section-kicker" style="margin-bottom:16px;"><span class="tag tag-blue">HOW IT WORKS</span></div>
+    <h2 class="section-h" style="margin-bottom:48px;">From raw data to executable signal</h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01 — DATA</div>
+        <div class="how-h">Live Multi-Source Feeds</div>
+        <div class="how-p">Gold price from Stooq/Twelve Data waterfall. DXY computed from live FX rates. FRED for CPI and Fed Funds. CFTC COT weekly. All routes through Cloudflare Worker with KV caching and tier enforcement.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02 — STRUCTURE</div>
+        <div class="how-h">SMC Engine + ADX/DMI</div>
+        <div class="how-p">BOS/CHoCH detected from real OHLC candles across 6 timeframes. Wilder-smoothed ADX with session-adjusted thresholds. Auto-detected supply/demand zones updated with every D1 close. Zero hardcoded levels.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03 — FUSION</div>
+        <div class="how-h">Bayesian + ML Synthesis</div>
+        <div class="how-p">6 strategy signals enter the log-odds combiner. RF ML model predicts P(WIN) from 8-feature vector. Outputs blend 60% Bayesian / 40% rule-based into a single direction, grade, and confidence score.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04 — EXECUTE</div>
+        <div class="how-h">Swing Navigator</div>
+        <div class="how-p">When 6/7 entry gates clear or a 3-candle trigger fires, the swing engine opens a position slice with auto-computed entry, SL, and 3 TPs. Slice lifecycle managed: hedge at 1R, runner to TP2, auto-journal on close.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-kicker"><span class="tag tag-gold">PRICING</span></div>
+    <h2 class="section-h">Simple, honest pricing</h2>
+    <p class="section-sub">No contracts. Cancel anytime. Free tier stays free forever.</p>
+
+    <div class="price-grid">
+
+      <!-- FREE -->
+      <div class="price-card">
+        <div class="price-tier" style="color:var(--t3);">NEXUS LITE</div>
+        <div class="price-name">Free</div>
+        <div class="price-amount">
+          <span class="price-num">$0</span>
+          <span class="price-per">/forever</span>
+        </div>
+        <div class="price-desc">Dashboard access with 15-minute delayed gold price. Perfect for exploring NEXUS before committing.</div>
+        <button class="price-btn price-btn-outline" onclick="startFree()">Start Free</button>
+        <div class="price-divider"></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Dashboard + signal direction</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Market summary (DXY, yield, oil, SPX)</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Economic calendar</span></div>
+        <div class="price-feature"><span class="pf-ico no">✗</span><span class="pf-txt dim">Live gold price (15-min delay)</span></div>
+        <div class="price-feature"><span class="pf-ico no">✗</span><span class="pf-txt dim">ML grade + confidence</span></div>
+        <div class="price-feature"><span class="pf-ico no">✗</span><span class="pf-txt dim">SMC structure modules</span></div>
+        <div class="price-feature"><span class="pf-ico no">✗</span><span class="pf-txt dim">Trade journal + swing navigator</span></div>
+      </div>
+
+      <!-- PRO -->
+      <div class="price-card featured">
+        <div class="price-tier" style="color:var(--buy);">NEXUS PRO</div>
+        <div class="price-name">Pro</div>
+        <div class="price-amount">
+          <span class="price-num">$49</span>
+          <span class="price-per">/month</span>
+        </div>
+        <div class="price-desc">Everything a serious gold trader needs — all 6 analytical modules, live data, ML engine, and swing navigator.</div>
+        <button class="price-btn price-btn-buy" onclick="upgradePro()">Upgrade to Pro</button>
+        <div class="price-divider"></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Everything in Free</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt"><strong>Live gold price — 5s refresh</strong></span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">All 6 ZED modules (Macro → Journal)</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Random Forest ML — Grade A/B/C</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Swing Navigator + slice management</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Real OHLC candles (6 timeframes)</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Trade journal — 50 trades + CSV export</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Cross-device journal sync</span></div>
+        <div class="price-feature"><span class="pf-ico no">✗</span><span class="pf-txt dim">Real order flow (OANDA WebSocket)</span></div>
+        <div class="price-feature"><span class="pf-ico no">✗</span><span class="pf-txt dim">Telegram / webhook alerts</span></div>
+      </div>
+
+      <!-- EDGE -->
+      <div class="price-card" style="border-color:var(--goldborder);">
+        <div class="price-tier" style="color:var(--gold);">NEXUS EDGE</div>
+        <div class="price-name" style="color:var(--gold);">Edge</div>
+        <div class="price-amount">
+          <span class="price-num" style="color:var(--gold);">$149</span>
+          <span class="price-per">/month</span>
+        </div>
+        <div class="price-desc">For full-time traders and prop firm operators. Real DOM data, live alerts, and unlimited journal history.</div>
+        <button class="price-btn price-btn-gold" onclick="upgradeEdge()">Upgrade to Edge</button>
+        <div class="price-divider"></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Everything in Pro</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt"><strong>Real OANDA order flow — live DOM</strong></span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Telegram + Discord + email alerts</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Unlimited trade journal history</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Custom HTF levels — cross-device sync</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Priority support</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">COT percentile history (52-week)</span></div>
+        <div class="price-feature"><span class="pf-ico ok">✓</span><span class="pf-txt">Performance attribution analytics</span></div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;margin-top:28px;font-size:12px;color:var(--t3);">
+      All prices in USD. Cancel anytime — no penalties, no questions.
+      <span style="color:var(--t3);"> · </span>
+      Payments processed securely via Stripe.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ COMPARISON ═══════════════ -->
+<section id="compare">
+  <div class="container">
+    <div class="section-kicker" style="margin-bottom:16px;"><span class="tag tag-blue">VS THE MARKET</span></div>
+    <h2 class="section-h" style="margin-bottom:48px;">What you get vs alternatives</h2>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:40%;">Feature</th>
+            <th style="color:var(--gold);">NEXUS Pro</th>
+            <th>TradingView Premium</th>
+            <th>Bloomberg Terminal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Price</td>
+            <td class="cmp-highlight" style="color:var(--gold);font-weight:700;">$49/mo</td>
+            <td class="cmp-no">$60/mo</td>
+            <td class="cmp-no">$2,000+/mo</td></tr>
+          <tr><td>SMC Structure Analysis</td>
+            <td class="cmp-highlight cmp-yes">✓ Auto-computed</td>
+            <td class="cmp-no">Manual only</td>
+            <td class="cmp-no">Manual only</td></tr>
+          <tr><td>Random Forest ML Signals</td>
+            <td class="cmp-highlight cmp-yes">✓ 10-tree RF</td>
+            <td class="cmp-no">✗</td>
+            <td class="cmp-no">✗</td></tr>
+          <tr><td>Bayesian Signal Fusion</td>
+            <td class="cmp-highlight cmp-yes">✓ 6-strategy</td>
+            <td class="cmp-no">✗</td>
+            <td class="cmp-no">✗</td></tr>
+          <tr><td>Auto-drawn Zone Overlays</td>
+            <td class="cmp-highlight cmp-yes">✓ Live OHLC</td>
+            <td class="cmp-no">Pine Script only</td>
+            <td style="color:var(--t3);">Via plugins</td></tr>
+          <tr><td>Monte Carlo Simulation</td>
+            <td class="cmp-highlight cmp-yes">✓ 500-path GBM</td>
+            <td class="cmp-no">✗</td>
+            <td class="cmp-yes">✓</td></tr>
+          <tr><td>News Blackout Gates</td>
+            <td class="cmp-highlight cmp-yes">✓ Auto-enforced</td>
+            <td class="cmp-no">✗</td>
+            <td class="cmp-yes">✓</td></tr>
+          <tr><td>Position-Aware Swing Engine</td>
+            <td class="cmp-highlight cmp-yes">✓ 8-state machine</td>
+            <td class="cmp-no">✗</td>
+            <td class="cmp-no">✗</td></tr>
+          <tr><td>COT Data Integration</td>
+            <td class="cmp-highlight cmp-yes">✓ Live CFTC</td>
+            <td class="cmp-no">✗</td>
+            <td class="cmp-yes">✓</td></tr>
+          <tr><td>Mobile-ready</td>
+            <td class="cmp-highlight cmp-yes">✓ PWA ready</td>
+            <td class="cmp-yes">✓</td>
+            <td class="cmp-no">Desktop only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FREE EMAIL CAPTURE ═══════════════ -->
+<section id="capture">
+  <div class="container">
+    <div class="capture-box">
+      <div style="font-size:32px;margin-bottom:12px;">🌟</div>
+      <h2 class="capture-h">Try NEXUS free today</h2>
+      <p class="capture-sub">Get dashboard access and delayed price signals instantly. No credit card, no commitment. Upgrade when you're ready.</p>
+      <div class="capture-form">
+        <input class="capture-input" id="captureEmail" type="email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitCapture()">
+        <button class="btn btn-gold btn-large" onclick="submitCapture()">Start Free →</button>
+      </div>
+      <div class="capture-fine">By signing up you agree to our Terms of Service. No spam — ever.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-kicker"><span class="tag tag-gold">FAQ</span></div>
+    <h2 class="section-h" style="margin-bottom:40px;">Common questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Is this financial advice?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">No. NEXUS is an analytical tool — not financial advice, investment recommendations, or a solicitation to trade. All signals are generated by automated algorithms and statistical models. Trading gold carries significant risk of loss. Always verify signals independently before executing any trade. Past system performance is not indicative of future results.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          What data sources does NEXUS use?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Live gold price from Stooq and Twelve Data with multi-source failover. DXY computed in real-time from FloatRates FX data. US 10Y Yield direct from FRED (St. Louis Federal Reserve). WTI crude from Stooq futures. VIX and SPX from Yahoo Finance. COT data from the CFTC public API weekly. Economic calendar from ForexFactory. All fetched live — no manual updates required.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Do I need a Twelve Data API key?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Not immediately. NEXUS uses a multi-source fallback chain that works without any API keys — you get live gold prices from public sources within seconds. For real OHLC candlestick data across all 6 timeframes (required for precise SMC analysis), you'll want to connect a Twelve Data key via the Settings modal. Twelve Data's free tier offers 800 API calls/day — sufficient for personal use. The Grow plan at $29/month covers full production use.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          How does the ML engine work?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">NEXUS uses a genuine 10-tree Random Forest with bootstrap sampling and random feature subsets — not logistic regression or simple heuristics. The model trains on your completed trades, extracting an 8-feature vector (macro score, ADX strength, sweep detected, BOS/CHoCH, zone proximity, session quality, brain confidence, cascade score). Out-of-bag accuracy is computed automatically. The model retrains every 20 cycles as new trades close. Minimum 10 real trade outcomes required before the model activates.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Can I use NEXUS on mobile?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Yes. NEXUS is fully mobile-responsive with a bottom navigation bar, touch-friendly chart with pinch-to-zoom, and a FAB navigation button. The app runs in any mobile browser. A PWA manifest is included — tap "Add to Home Screen" on iOS or Android for a native-app feel with offline capability.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          What's the difference between NEXUS chart and TradingView?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">NEXUS has two chart modes. The NEXUS chart is our own canvas-based renderer with auto-drawn zones, FVGs, OBs, PDH/PDL, equal highs/lows, sweep markers, and EMA overlays — all computed from live OHLC data without any manual input. The TradingView widget (toggle button in the chart header) is available for users who want to manually mark additional structure on top of TradingView's ecosystem. You don't need a TradingView account to use the NEXUS chart.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Is my trading data private?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Yes. Your trade journal, ML training data, account settings, and API keys are stored either in your browser's localStorage (local) or in a Supabase database with Row Level Security enforced — meaning no one else can access your data, including us. API keys (Twelve Data, OANDA) are stored locally in your browser only and are never sent to any server. The Cloudflare Worker proxies API calls so your keys remain private.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Can I cancel my subscription?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Yes, at any time, with no penalties or questions. Click your avatar → Manage Subscription → Cancel. Your access continues until the end of the billing period you've already paid for. We don't pro-rate, but we don't charge you again either.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FINAL CTA ═══════════════ -->
+<section id="cta-final">
+  <div class="cta-final-bg"></div>
+  <div class="container">
+    <h2 class="cta-final-h">Start trading with <span class="gold">institutional clarity</span></h2>
+    <p class="cta-final-sub">Free tier available forever. Upgrade when you see the edge — and you will.</p>
+    <div class="cta-actions">
+      <button class="btn btn-gold btn-xl" onclick="startFree()">Start Free — No Card Required</button>
+      <button class="btn btn-outline btn-xl" onclick="goToDashboard()">Open Live Dashboard →</button>
+    </div>
+    <div class="cta-note">Not financial advice · Trading involves risk of loss · Data sourced from public APIs</div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="nav-n" style="width:28px;height:28px;font-size:14px;">N</div>
+          NEXUS ZED
+        </div>
+        <div class="footer-desc">Institutional-grade XAU/USD analytical intelligence for serious gold traders. SMC · ML · Bayesian · Live data.</div>
+      </div>
+      <div>
+        <div class="footer-col-h">PRODUCT</div>
+        <a class="footer-link" href="#features">Features</a>
+        <a class="footer-link" href="#pricing">Pricing</a>
+        <a class="footer-link" href="#compare">Comparison</a>
+        <a class="footer-link" onclick="goToDashboard()">Open Dashboard</a>
+      </div>
+      <div>
+        <div class="footer-col-h">SUPPORT</div>
+        <a class="footer-link" href="#faq">FAQ</a>
+        <a class="footer-link" href="WORKER_SETUP.md">Worker Setup Guide</a>
+        <a class="footer-link" href="mailto:support@nexuszed.com">Contact Us</a>
+      </div>
+      <div>
+        <div class="footer-col-h">LEGAL</div>
+        <a class="footer-link" href="#">Terms of Service</a>
+        <a class="footer-link" href="#">Privacy Policy</a>
+        <a class="footer-link" href="#">Risk Disclosure</a>
+        <a class="footer-link" href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <strong>IMPORTANT RISK DISCLOSURE:</strong> Trading XAU/USD (Gold) involves substantial risk of loss and is not appropriate for all investors. NEXUS ZED is an analytical tool only — not financial advice, investment recommendations, or a solicitation to trade. Past performance and system signals are not indicative of future results. You may lose more than your initial investment. Only trade with capital you can afford to lose. Always conduct your own independent research and consult a qualified financial adviser before trading.
+      </div>
+      <div class="footer-copy">© 2026 NEXUS ZED Trading Systems</div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// ── PREVIEW CANDLE ANIMATION ──────────────────────────────
+(function buildCandles(){
+  const container = document.getElementById('previewCandles');
+  if (!container) return;
+  const candles = [
+    {o:.55,h:.75,l:.45,c:.65,up:true},
+    {o:.65,h:.80,l:.58,c:.72,up:true},
+    {o:.72,h:.85,l:.65,c:.68,up:false},
+    {o:.68,h:.72,l:.55,c:.58,up:false},
+    {o:.58,h:.65,l:.45,c:.48,up:false},
+    {o:.48,h:.55,l:.38,c:.52,up:true},
+    {o:.52,h:.60,l:.44,c:.46,up:false},
+    {o:.46,h:.50,l:.35,c:.38,up:false},
+    {o:.38,h:.45,l:.30,c:.42,up:true},
+    {o:.42,h:.50,l:.36,c:.40,up:false},
+    {o:.40,h:.46,l:.32,c:.35,up:false},
+    {o:.35,h:.40,l:.28,c:.30,up:false},
+  ];
+  container.innerHTML = candles.map(c => {
+    const H = 80, col = c.up ? '#22c55e' : '#ef4444';
+    const bodyTop = Math.min(c.o, c.c) * H;
+    const bodyH   = Math.max(1, Math.abs(c.c - c.o) * H);
+    return `<div style="position:relative;width:7px;height:${H}px;flex-shrink:0;">
+      <div style="position:absolute;left:50%;transform:translateX(-50%);width:1px;background:${col};top:${(1-c.h)*H}px;bottom:${c.l*H}px;"></div>
+      <div style="position:absolute;left:0;right:0;background:${col};bottom:${c.l*H + (Math.min(c.o,c.c)-c.l)*H}px;height:${bodyH}px;border-radius:1px;"></div>
+    </div>`;
+  }).join('');
+})();
+
+// ── ANIMATED PRICE TICK ───────────────────────────────────
+let _basePrice = 3382.45;
+setInterval(() => {
+  _basePrice += (Math.random() - 0.52) * 0.8;
+  _basePrice = Math.max(3370, Math.min(3395, _basePrice));
+  const el = document.getElementById('previewPrice');
+  if (el) el.textContent = _basePrice.toFixed(2);
+}, 2000);
+
+// ── FAQ ACCORDION ─────────────────────────────────────────
+function toggleFAQ(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+function goToDashboard() {
+  window.location.href = 'index.html';
+}
+
+function startFree() {
+  const email = document.getElementById('captureEmail')?.value?.trim();
+  if (email) submitCapture();
+  else window.location.href = 'index.html';
+}
+
+function upgradePro()  { window.location.href = 'index.html?upgrade=pro'; }
+function upgradeEdge() { window.location.href = 'index.html?upgrade=edge'; }
+
+function submitCapture() {
+  const email = document.getElementById('captureEmail')?.value?.trim();
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email address.', '#ef4444');
+    return;
+  }
+  // Store email locally + redirect to dashboard
+  try { localStorage.setItem('nexus_pending_email', email); } catch(e) {}
+  showToast('Welcome to NEXUS! Opening dashboard...', '#22c55e');
+  setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+}
+
+function showToast(msg, color) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  t.style.borderColor = color || 'var(--buyborder)';
+  t.style.color = color || 'var(--buy)';
+  setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+
+// ── SMOOTH SCROLL ─────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// ── SCROLL ANIMATE ────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.style.opacity = '1'; });
+}, { threshold: 0.1 });
+document.querySelectorAll('.feat-card,.how-step,.price-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 }).observe(document.querySelector('#metrics') || document.body);
+
+// Handle upgrade params from redirect
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('upgrade')) {
+    setTimeout(() => {
+      window.location.href = 'index.html?upgrade=' + p.get('upgrade');
+    }, 100);
+  }
+})();
+</script>
+</body>
+</html>
