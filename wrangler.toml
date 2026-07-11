@@ -1,0 +1,39 @@
+# ════════════════════════════════════════════════════════════
+# NEXUS ZED — Wrangler Configuration
+# Cloudflare Worker deployment config
+# ════════════════════════════════════════════════════════════
+
+name = "nexus-zed-worker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# ── KV NAMESPACE ─────────────────────────────────────────
+# Create this in Cloudflare dashboard → Workers & Pages → KV
+# Then paste the ID below
+[[kv_namespaces]]
+binding = "NEXUS_CACHE"
+id      = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# ── ENVIRONMENT VARIABLES ─────────────────────────────────
+# Non-secret config (safe to commit)
+[vars]
+WORKER_VERSION      = "1.0.0"
+FREE_DELAY_MINUTES  = "15"
+RATE_LIMIT_PER_HOUR = "360"
+
+# ── SECRETS (set via CLI, never in this file) ─────────────
+# Run these commands to set secrets:
+#
+#   wrangler secret put TWELVE_DATA_KEY
+#   (paste your Twelve Data API key when prompted)
+#
+#   wrangler secret put NEXUS_PRO_SECRET
+#   (paste any random 32-char string — used for tier validation)
+#
+# Secrets are encrypted and never visible after setting.
+
+# ── ROUTES (optional — custom domain) ────────────────────
+# Uncomment and configure if you have a custom domain:
+# [[routes]]
+# pattern = "api.nexuszed.com/*"
+# zone_name = "nexuszed.com"
