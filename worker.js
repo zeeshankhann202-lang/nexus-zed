@@ -623,7 +623,9 @@ async function handleCalendar(request, env, ctx) {
 // ════════════════════════════════════════════════════════════
 async function handleHealth(env, tier, zedhqHalt=false, zedhqHaltReason='') {
   return jsonResponse({
-    status:          'ok',
+    status:          zedhqHalt ? 'HALTED_BY_ZED_HQ' : 'ok',
+    zedhq_halt:      zedhqHalt,
+    zedhq_halt_reason: zedhqHaltReason || null,
     version:         env.WORKER_VERSION || '1.0.0',
     tier,
     twelve_data_key: env.TWELVE_DATA_KEY ? '✓ configured' : '✗ missing — add via: wrangler secret put TWELVE_DATA_KEY',
