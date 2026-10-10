@@ -111,6 +111,28 @@ export default {
       }
     }
 
+    // ── ZED HQ HALT FLAG CHECK ─────────────────────────────────────
+    // Reads zed_hq_controls from Supabase.
+    // Non-blocking — timeout 3s, fails open (does not crash worker).
+    // Halt status surfaces in /health response so HQOS sees correct state.
+    let zedhqHalt = false;
+    let zedhqHaltReason = '';
+    try {
+      const SB_URL = 'https://ggjftzihshbafcsqsdth.supabase.co';
+      const SB_KEY = env.NEXUS_SUPABASE_ANON_KEY || '';
+      if (SB_KEY) {
+        const haltRes = await fetch(
+          `${SB_URL}/rest/v1/zed_hq_controls?id=eq.execution_control&select=halt,reason`,
+          { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` },
+            signal: AbortSignal.timeout(3000) }
+        );
+        if (haltRes.ok) {
+          const rows = await haltRes.json();
+          if (rows?.[0]) { zedhqHalt = rows[0].halt === true; zedhqHaltReason = rows[0].reason || ''; }
+        }
+      }
+    } catch (_) { /* non-blocking — halt check failure does not stop the worker */ }
+
     // ── ROUTE DISPATCHER ─────────────────────────────────
     try {
       if (path === '/' || path === '/prices' || path === '') {
@@ -129,7 +151,7 @@ export default {
         return await handleCalendar(request, env, ctx);
       }
       if (path === '/health' || path === '/test') {
-        return await handleHealth(env, tier);
+        return await handleHealth(env, tier, zedhqHalt, zedhqHaltReason);
       }
       if (path === '/tier') {
         return jsonResponse({ tier, version: env.WORKER_VERSION || '1.0.0' });
@@ -599,7 +621,7 @@ async function handleCalendar(request, env, ctx) {
 // ════════════════════════════════════════════════════════════
 // /health — Connection test + diagnostics
 // ════════════════════════════════════════════════════════════
-async function handleHealth(env, tier) {
+async function handleHealth(env, tier, zedhqHalt=false, zedhqHaltReason='') {
   return jsonResponse({
     status:          'ok',
     version:         env.WORKER_VERSION || '1.0.0',
