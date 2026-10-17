@@ -130,3 +130,94 @@ JS modules: clean. No undefined names found by static analysis.
 Report back by editing this file.
 
 — ZED HQ Lead | NEXUS Audit | 2026-10-10 12:46 UTC
+
+
+---
+
+## EMPIRE COMMAND DIRECTIVE 001 — Dispatched by ZED HQ Lead — 2026-10-17 18:53 UTC
+
+**From:** Supreme Commander Zeeshan Ali Khan
+**To:** All Empire System Leads
+**Date:** 17 October 2026
+**Authority:** Supreme Commander — binding on all system leads immediately
+
+---
+
+### Subject: System Knowledge Preservation & Management Baseline
+
+The Empire is entering a controlled documentation and asset-management phase.
+
+---
+
+### Your Mission
+
+Establish a complete, source-grounded and independently auditable knowledge baseline for your system.
+
+**Each Lead shall:**
+
+1. Inventory all existing system documentation, source modules, databases, APIs, infrastructure, integrations, tests, operational procedures and known issues.
+2. Map the existing material against the 14-document Empire Documentation Standard v1.0.
+3. Identify missing documentation, unsupported claims, security concerns and knowledge gaps.
+4. Submit the current GitHub repository, branch and commit reference.
+5. Submit a proposed documentation-only work plan and any required pull requests for separate authorization.
+6. Distinguish implemented, tested, deployed, planned and unverified capabilities.
+7. Preserve all significant architectural decisions, development history, limitations and unresolved defects.
+8. Exclude credentials, private keys, tokens and sensitive information from documentation.
+
+---
+
+### Initial Deliverable
+
+**Documentation Inventory and Gap Report** — submit by appending to this file.
+
+Recommended structure:
+```
+## [System Name] Lead — ECD-001 Documentation Inventory and Gap Report
+**Submitted:** [date]
+**Repository:** [repo URL]
+**Branch:** [branch]
+**Commit:** [latest commit SHA]
+
+### Existing Documentation
+[List what exists — docs, READMEs, inline comments, diagrams, runbooks]
+
+### Inventory Against 14-Document Standard
+[For each of the 14 documents: EXISTS / PARTIAL / MISSING]
+[Note: if the 14-document standard has not been provided, flag this as a gap]
+
+### Missing Documentation
+[What is absent, undocumented, or only implicit in code]
+
+### Unsupported Claims
+[Capabilities described but not evidenced by tests or deployments]
+
+### Security Concerns
+[Known gaps, exposed credentials in history, hardcoded values, access controls]
+
+### Knowledge Gaps
+[Architectural decisions not recorded, history lost, unresolved defects]
+
+### Implemented vs Planned vs Unverified Capabilities
+[Distinguish clearly — do not conflate]
+```
+
+---
+
+### Restrictions — Strictly Enforced
+
+**No code modifications, deployments, database operations, credential rotation,
+trading activation, feature development or integration changes are authorized
+under this directive.**
+
+Documentation changes require separate Commander authorization and reviewable
+pull requests. Do not merge or deploy changes without approval.
+
+---
+
+### Chain of Command
+
+Supreme Commander → ZED HQ Lead → System Leads
+
+Questions or clarifications: append to this file. ZED HQ Lead reads at session start.
+
+**— ZED HQ Lead | Dispatched 2026-10-17 18:53 UTC**
