@@ -221,3 +221,82 @@ Supreme Commander → ZED HQ Lead → System Leads
 Questions or clarifications: append to this file. ZED HQ Lead reads at session start.
 
 **— ZED HQ Lead | Dispatched 2026-10-17 18:53 UTC**
+
+
+---
+
+## EMPIRE CORRECTIVE DIRECTIVE ECD-001A — Dispatched by ZED HQ Lead — 2026-10-17 19:04 UTC
+
+**From:** Supreme Commander Zeeshan Ali Khan
+**Authority:** Supersedes and extends ECD-001
+**Date:** 17 October 2026
+
+---
+
+### Empire Documentation Standard v1.0 — 14 Required Categories
+
+```
+1.  System Identity
+2.  Architecture
+3.  Component Inventory
+4.  Deployment
+5.  Data Model
+6.  Integrations
+7.  Governance
+8.  Security and Risk
+9.  Tests and Evidence
+10. Known Issues
+11. Development History
+12. Roadmap
+13. Asset Value
+14. Operations and Recovery
+```
+
+**File location:** `docs/empire/` — numbered Markdown filenames
+(e.g. `docs/empire/01-system-identity.md`, `docs/empire/02-architecture.md`)
+Unless existing documentation covers the category without duplication.
+
+---
+
+### Required Submission — Updated
+
+- Current repository, branch and **full commit SHA**
+- Mapping of existing documents against all 14 categories (EXISTS / PARTIAL / MISSING)
+- Missing information and unsupported capability claims
+- Source references for significant implemented capabilities
+- Known security, operational and integration risks
+- Documentation-only implementation plan
+- Proposed reviewable documentation PRs (do not merge without Commander authorization)
+
+---
+
+### Evidence Policy
+
+Clearly distinguish:
+- **Lead-reported:** your own assessment, not independently verified
+- **Source-confirmed:** traceable to specific file, function, or schema
+- **Production-verified:** confirmed by live operational evidence (logs, metrics, deployment records)
+- **Unverified:** described or claimed but without traceable evidence
+
+---
+
+### Security Policy
+
+Do not place credentials, API keys, passwords, private keys or other secrets in documentation.
+Report exposed credentials through a restricted security channel without reproducing their values.
+
+---
+
+### Change Restrictions — Unchanged from ECD-001
+
+No application code changes, deployments, database changes, credential rotations,
+trading activation or feature development are authorized by this directive.
+
+All documentation PRs require separate Commander authorization before merging.
+
+---
+
+Append your ECD-001A submission to this file.
+ZED HQ Lead reads at session start.
+
+**— ZED HQ Lead | 2026-10-17 19:04 UTC**
