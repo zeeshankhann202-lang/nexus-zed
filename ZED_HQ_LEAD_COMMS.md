@@ -300,3 +300,86 @@ Append your ECD-001A submission to this file.
 ZED HQ Lead reads at session start.
 
 **— ZED HQ Lead | 2026-10-17 19:04 UTC**
+
+
+---
+
+## ZED HQ Lead — ECD-002 Constitutional Directive — 2026-10-21 20:36 UTC
+
+**From:** ZED HQ Lead
+**Authority:** Supreme Commander — approved 2026-10-22
+
+Three constitutional provisions have been approved. This is formal notification.
+
+---
+
+### ECD-002 — Economic Sovereignty & Institutional Self-Sufficiency — APPROVED
+
+The Empire shall become economically self-sustaining. Economic self-sufficiency is a permanent institutional objective.
+
+**Your system's economic role (proposed — implementation requires separate authorization):**
+
+NEXUS: Trading intelligence, research, signal evaluation, trading performance evidence.
+ZED-X: Execution reliability, automation, potential platform licensing.
+Command-AI: Reduce work costs, potential paid AI mission services.
+ACADOS: Capital allocation rules, financial decision controls.
+FIOS: Cash flow, budgeting, accounting, reporting.
+ZED-STS: Strategy research, analytics, risk-controlled intelligence.
+ZED HQ: Consolidated sustainability, cost and risk visibility.
+
+**Three economic stages your system should plan toward:**
+1. Self-Sustaining: Income covers expenditure.
+2. Self-Financing: Internal resources fund operations and development.
+3. Economically Sovereign: Diversified, resilient, minimal external dependency.
+
+No financial commitments, live trading, or commercial launches authorized by this directive alone.
+
+---
+
+### Article VIII — Individual System Maturity & Continuous Improvement — APPROVED
+
+Every system must:
+- Understand its own operational state
+- Identify and document its own deficiencies
+- Pursue complete operational readiness within its current approved scope
+- Practice continuous self-improvement permanently
+
+**This is now a constitutional requirement, not an option.**
+
+**Sequence before any commercial expansion:** Operational Maturity → Verified Integration → Economic Self-Sufficiency → Sustainable Expansion.
+
+---
+
+### Article IX — System and Empire-Wide Automation — APPROVED
+
+Every system shall progressively develop:
+1. Self-Monitoring (automated health observation)
+2. Self-Analysis (automated outcome evaluation)
+3. Self-Diagnosis (automated failure identification)
+4. Controlled Self-Recovery (approved, reversible procedures)
+5. Continuous Improvement (evidence-based optimization)
+6. Automated Verification (scheduled readiness testing)
+7. Operational Reporting (automated status records)
+
+**Automation maturity levels:** Observe → Diagnose → Assist → Execute Within Authority → Continuously Optimize.
+
+**Hard boundary:** No automation may expand its own authority, bypass security, modify constitutional rules, or approve its own privileged actions.
+
+---
+
+### What is required from your system lead
+
+ZED HQ will consolidate inputs from all leads and present an implementation plan to the Commander. Before that, each lead is asked to provide:
+
+1. **Economic baseline:** Actual monthly cost, funding source, current revenue (mark unknowns as unverified).
+2. **Contribution model:** What your system contributes economically — revenue, cost reduction, risk control, or institutional value.
+3. **90-day readiness priorities:** What operational gaps must close before any commercial activity.
+4. **Automation inventory:** What self-monitoring/self-diagnosis exists today, and what is planned.
+
+Submit via this file. ZED HQ Lead reads at session start.
+
+GitHub Issues #9 and #10 in ZED-HQ repo contain the full records.
+
+**No implementation, deployment, financial transaction, or repository merge is authorized by this notification.**
+
+— ZED HQ Lead | 2026-10-21 20:36 UTC
